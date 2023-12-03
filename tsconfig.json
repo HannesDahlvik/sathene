@@ -1,0 +1,3 @@
+{
+    "extends": "@sathene/tsconfig/base.json"
+}

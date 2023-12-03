@@ -1,0 +1,22 @@
+{
+    "name": "sathene",
+    "private": true,
+    "packageManager": "pnpm@8.9.0",
+    "engines": {
+        "node": ">=20"
+    },
+    "scripts": {
+        "web": "pnpm --filter @sathene/web --",
+        "build": "turbo build",
+        "lint": "turbo lint",
+        "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    },
+    "devDependencies": {
+        "@sathene/eslint": "workspace:*",
+        "@sathene/tsconfig": "workspace:*",
+        "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+        "prettier": "^3.1.0",
+        "turbo": "latest",
+        "typescript": "^5"
+    }
+}

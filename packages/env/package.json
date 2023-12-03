@@ -1,0 +1,15 @@
+{
+    "name": "@sathene/env",
+    "version": "0.0.0",
+    "type": "module",
+    "main": "src/index.ts",
+    "dependencies": {
+        "znv": "^0.4.0",
+        "zod": "^3.22.4"
+    },
+    "devDependencies": {
+        "@sathene/tsconfig": "workspace:^",
+        "@types/node": "^20",
+        "typescript": "^5"
+    }
+}
