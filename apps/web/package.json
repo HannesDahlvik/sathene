@@ -10,16 +10,20 @@
         "with-env": "dotenv -e ../../.env --"
     },
     "dependencies": {
+        "@hookform/resolvers": "^3.3.2",
         "@sathene/api": "workspace:^",
         "@sathene/ui-web": "workspace:^",
         "@tanstack/react-query": "^4",
         "@trpc/client": "^10.44.1",
         "@trpc/react-query": "^10.44.1",
         "@trpc/server": "^10.44.1",
+        "lucide-react": "^0.294.0",
         "next": "^14",
         "react": "^18",
         "react-dom": "^18",
-        "superjson": "^2.2.1"
+        "react-hook-form": "^7.48.2",
+        "superjson": "^2.2.1",
+        "zod": "^3.22.4"
     },
     "devDependencies": {
         "@sathene/eslint": "workspace:^",

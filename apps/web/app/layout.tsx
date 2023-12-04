@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import { Lato } from 'next/font/google'
 
+import { getServerSession } from '@sathene/api'
+import { Toaster } from '@sathene/ui-web'
+
 import './globals.css'
 import { Providers } from '~/providers'
+import AuthProvider from '~/providers/Auth'
 
 const lato = Lato({
     subsets: ['latin'],
@@ -17,13 +21,19 @@ export const metadata: Metadata = {
     }
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+    const session = await getServerSession()
+
     return (
         <html lang="en">
             <body className={lato.variable}>
-                <Providers>
-                    <>{children}</>
-                </Providers>
+                <AuthProvider session={session}>
+                    <Providers>
+                        <Toaster />
+
+                        <>{children}</>
+                    </Providers>
+                </AuthProvider>
             </body>
         </html>
     )

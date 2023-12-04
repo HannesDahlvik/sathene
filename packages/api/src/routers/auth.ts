@@ -1,7 +1,7 @@
 import * as context from 'next/headers'
 
 import { auth } from '../auth/lucia'
-import { procedure, router } from '../trpc'
+import { authedProcedure, procedure, router } from '../trpc'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 
@@ -93,5 +93,19 @@ export const authRouter = router({
             }
 
             return session.user
-        })
+        }),
+    logout: authedProcedure.mutation(async ({ ctx }) => {
+        await auth.invalidateSession(ctx.session.sessionId)
+
+        if (ctx.req) {
+            const authRequest = auth.handleRequest(ctx.req.method, context)
+            authRequest.setSession(null)
+        } else {
+            throw new TRPCError({
+                code: 'BAD_REQUEST'
+            })
+        }
+
+        return null
+    })
 })

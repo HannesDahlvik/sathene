@@ -1,5 +1,5 @@
-import type { satheneRouter } from '@sathene/api'
+import type { SatheneRouter } from '@sathene/api'
 
 import { createTRPCReact } from '@trpc/react-query'
 
-export const api = createTRPCReact<satheneRouter>()
+export const api = createTRPCReact<SatheneRouter>()
