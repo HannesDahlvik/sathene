@@ -7,4 +7,4 @@ export const satheneRouter = router({
     test: testRouter
 })
 
-export type satheneRouter = typeof satheneRouter
+export type SatheneRouter = typeof satheneRouter

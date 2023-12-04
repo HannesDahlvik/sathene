@@ -3,15 +3,16 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "dev": "next dev --turbo",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
+        "dev": "pnpm with-env next dev",
+        "build": "pnpm with-env next build",
+        "start": "pnpm with-env next start",
+        "lint": "pnpm with-env next lint",
+        "with-env": "dotenv -e ../../.env --"
     },
     "dependencies": {
         "@sathene/api": "workspace:^",
         "@sathene/ui-web": "workspace:^",
-        "@tanstack/react-query": "^5.12.2",
+        "@tanstack/react-query": "^4",
         "@trpc/client": "^10.44.1",
         "@trpc/react-query": "^10.44.1",
         "@trpc/server": "^10.44.1",
@@ -28,6 +29,7 @@
         "@types/react": "^18",
         "@types/react-dom": "^18",
         "autoprefixer": "^10",
+        "dotenv-cli": "^7.3.0",
         "eslint": "^8",
         "postcss": "^8",
         "tailwindcss": "^3",

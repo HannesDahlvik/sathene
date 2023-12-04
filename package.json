@@ -2,9 +2,6 @@
     "name": "sathene",
     "private": true,
     "packageManager": "pnpm@8.9.0",
-    "engines": {
-        "node": ">=20"
-    },
     "scripts": {
         "web": "pnpm --filter @sathene/web --",
         "build": "turbo build",

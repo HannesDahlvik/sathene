@@ -30,7 +30,7 @@ export const auth = lucia({
 
 export type Auth = typeof auth
 
-export const getPageSession = cache(() => {
+export const getServerSession = cache(() => {
     const authRequest = auth.handleRequest('GET', context)
     return authRequest.validate()
 })

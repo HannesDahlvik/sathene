@@ -11,7 +11,10 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-    title: 'Sathene'
+    title: {
+        default: 'Sathene',
+        template: '%s | Sathene'
+    }
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
