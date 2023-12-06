@@ -10,7 +10,7 @@ import AuthProvider from '~/providers/Auth'
 
 const lato = Lato({
     subsets: ['latin'],
-    weight: ['300', '400', '700'],
+    weight: ['300', '400', '700', '900'],
     variable: '--font'
 })
 
@@ -25,8 +25,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     const session = await getServerSession()
 
     return (
-        <html lang="en">
-            <body className={lato.variable}>
+        <html lang="en" className={lato.variable}>
+            <body>
                 <AuthProvider session={session}>
                     <Providers>
                         <Toaster />
