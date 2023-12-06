@@ -1,13 +1,14 @@
 import { env } from '@sathene/env'
 
-import { type Config } from 'drizzle-kit'
+import { defineConfig } from 'drizzle-kit'
 
-export default {
+export default defineConfig({
     schema: './src/schema.ts',
     out: './drizzle',
-    driver: 'turso',
+    driver: 'mysql2',
+    strict: true,
+    verbose: true,
     dbCredentials: {
-        url: env.DATABASE_URL,
-        authToken: env.DATABASE_AUTH_TOKEN
+        uri: env.DATABASE_URL
     }
-} satisfies Config
+})

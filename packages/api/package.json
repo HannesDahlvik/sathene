@@ -5,7 +5,7 @@
     "main": "./src/index.ts",
     "types": "./src/index.ts",
     "dependencies": {
-        "@lucia-auth/adapter-sqlite": "^2.0.1",
+        "@lucia-auth/adapter-mysql": "^2.1.0",
         "@sathene/db": "workspace:^",
         "@sathene/env": "workspace:^",
         "@trpc/client": "^10.44.1",

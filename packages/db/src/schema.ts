@@ -1,27 +1,39 @@
-import { sqliteTable, text, blob } from 'drizzle-orm/sqlite-core'
+import { mysqlTable, bigint, varchar, text } from 'drizzle-orm/mysql-core'
 
-export const user = sqliteTable('user', {
-    id: text('id').primaryKey(),
+export const user = mysqlTable('user', {
+    id: varchar('id', {
+        length: 15
+    }).primaryKey(),
     username: text('username').notNull()
 })
 
-export const session = sqliteTable('session', {
-    id: text('id').primaryKey(),
-    userId: text('user_id')
+export const key = mysqlTable('key', {
+    id: varchar('id', {
+        length: 255
+    }).primaryKey(),
+    userId: varchar('user_id', {
+        length: 15
+    })
         .notNull()
         .references(() => user.id),
-    activeExpires: blob('active_expires', {
-        mode: 'bigint'
-    }).notNull(),
-    idleExpires: blob('idle_expires', {
-        mode: 'bigint'
-    }).notNull()
+    hashedPassword: varchar('hashed_password', {
+        length: 255
+    })
 })
 
-export const key = sqliteTable('key', {
-    id: text('id').primaryKey(),
-    userId: text('user_id')
+export const session = mysqlTable('session', {
+    id: varchar('id', {
+        length: 128
+    }).primaryKey(),
+    userId: varchar('user_id', {
+        length: 15
+    })
         .notNull()
         .references(() => user.id),
-    hashedPassword: text('hashed_password')
+    activeExpires: bigint('active_expires', {
+        mode: 'number'
+    }).notNull(),
+    idleExpires: bigint('idle_expires', {
+        mode: 'number'
+    }).notNull()
 })

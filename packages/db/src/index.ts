@@ -1,14 +1,33 @@
 import { env } from '@sathene/env'
 
 import * as schema from './schema'
-import { createClient } from '@libsql/client'
-import { drizzle } from 'drizzle-orm/libsql'
+import { Connection as PlanetscaleConnection, connect } from '@planetscale/database'
+import { drizzle as mysqlDrizzle, type MySql2Database } from 'drizzle-orm/mysql2'
+import {
+    drizzle as planetscaleDrizzle,
+    type PlanetScaleDatabase
+} from 'drizzle-orm/planetscale-serverless'
+import mysql, { type Connection as MySQLConnection } from 'mysql2/promise'
 
-export const libsqlClient = createClient({
-    url: env.DATABASE_URL,
-    authToken: env.DATABASE_AUTH_TOKEN
-})
+let mysqlConnection: MySQLConnection
+let planetscaleConnection: PlanetscaleConnection
+let db: PlanetScaleDatabase<typeof schema> | MySql2Database<typeof schema>
 
-export const db = drizzle(libsqlClient, {
-    schema
-})
+if (env.NODE_ENV === 'production') {
+    planetscaleConnection = connect({
+        url: env.DATABASE_URL
+    })
+    db = planetscaleDrizzle(planetscaleConnection, {
+        schema
+    })
+} else {
+    mysqlConnection = await mysql.createConnection({
+        uri: env.DATABASE_URL
+    })
+    db = mysqlDrizzle(mysqlConnection, {
+        mode: 'default',
+        schema
+    })
+}
+
+export { db, mysqlConnection, planetscaleConnection }

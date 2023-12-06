@@ -4,15 +4,16 @@
     "main": "./src/index.ts",
     "scripts": {
         "build": "pnpm db:push",
-        "db:generate": "pnpm with-env drizzle-kit generate:sqlite",
-        "db:push": "pnpm with-env drizzle-kit push:sqlite",
+        "db:generate": "pnpm with-env drizzle-kit generate:mysql",
+        "db:push": "pnpm with-env drizzle-kit push:mysql",
         "db:studio": "pnpm with-env drizzle-kit studio",
         "with-env": "dotenv -e ../../.env --"
     },
     "dependencies": {
-        "@libsql/client": "0.4.0-pre.5",
+        "@planetscale/database": "^1.11.0",
         "@sathene/env": "workspace:^",
-        "drizzle-orm": "^0.29.1"
+        "drizzle-orm": "^0.29.1",
+        "mysql2": "^3.6.5"
     },
     "devDependencies": {
         "@sathene/tsconfig": "workspace:^",
