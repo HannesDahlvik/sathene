@@ -1,17 +1,5 @@
-'use client'
-
-import { Button } from '@sathene/ui-web'
-
-import { useAuth } from '~/providers/Auth'
+import { redirect } from 'next/navigation'
 
 export default function DashboardPage() {
-    const { logout } = useAuth()
-
-    return (
-        <div>
-            <h2>DashboardPage</h2>
-
-            <Button onClick={logout}>Logout</Button>
-        </div>
-    )
+    return redirect('/dashboard/overview')
 }
