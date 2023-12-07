@@ -23,6 +23,7 @@ export function useAuth() {
         logoutMutation.mutate(undefined, {
             onError: (err) => console.error(err),
             onSuccess: () => {
+                router.replace('/')
                 router.refresh()
             }
         })

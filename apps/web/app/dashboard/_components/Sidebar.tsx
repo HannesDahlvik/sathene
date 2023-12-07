@@ -3,11 +3,15 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { cn } from '@sathene/ui-web'
+import { Button, cn, useTheme } from '@sathene/ui-web'
 
+import { LogOut, Moon, Sun } from 'lucide-react'
 import { DASHBOARD_LINKS } from '~/lib/consts'
+import { useAuth } from '~/providers/Auth'
 
 export function DashboardSidebar() {
+    const { logout } = useAuth()
+    const { setTheme, theme } = useTheme()
     const pathname = usePathname()
 
     return (
@@ -38,6 +42,16 @@ export function DashboardSidebar() {
                         </Link>
                     )
                 })}
+            </div>
+
+            <div className="flex justify-center gap-2 w-full mt-auto">
+                <Button size="icon" onClick={logout}>
+                    <LogOut size={20} />
+                </Button>
+
+                <Button size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+                    {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                </Button>
             </div>
         </div>
     )
