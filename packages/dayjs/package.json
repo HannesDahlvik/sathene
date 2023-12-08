@@ -1,0 +1,8 @@
+{
+    "name": "@sathene/dayjs",
+    "version": "0.0.0",
+    "main": "src/index.ts",
+    "dependencies": {
+        "dayjs": "^1.11.10"
+    }
+}
