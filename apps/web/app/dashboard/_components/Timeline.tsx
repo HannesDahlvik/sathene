@@ -45,11 +45,11 @@ export function DashboardTimeline() {
 
     return (
         <div
-            className={`relative grid grid-rows-[repeat(24,_${hourBoxHeight}px)] h-full w-full bg-secondary border-l rounded-tr-xl rounded-br-xl overflow-y-scroll`}
+            className={`relative grid grid-rows-[repeat(24,_125px)] h-full w-full bg-secondary border-l rounded-tr-xl rounded-br-xl overflow-y-scroll`}
             ref={wrapper}
         >
             {hours.map((_, i) => (
-                <div className="grid grid-cols-[75px_1fr]">
+                <div className="grid grid-cols-[75px_1fr]" key={i}>
                     <div className="h-full w-full p-2 border-r border-b text-center">
                         <p>{i}:00</p>
                     </div>
