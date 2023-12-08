@@ -1,4 +1,4 @@
-import { Calendar, Layout, type LucideIcon } from 'lucide-react'
+import { Calendar, CheckCircle, Layout, StickyNote, type LucideIcon } from 'lucide-react'
 
 interface DashboardLink {
     title: string
@@ -16,5 +16,15 @@ export const DASHBOARD_LINKS: DashboardLink[] = [
         title: 'Calendar',
         href: '/dashboard/calendar',
         icon: Calendar
+    },
+    {
+        title: 'Tasks',
+        href: '/dashboard/tasks',
+        icon: CheckCircle
+    },
+    {
+        title: 'Notes',
+        href: '/dashboard/notes',
+        icon: StickyNote
     }
 ]
