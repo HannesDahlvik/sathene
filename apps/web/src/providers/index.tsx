@@ -2,7 +2,7 @@
 
 import type { PropsWithChildren } from 'react'
 
-import { ThemeProvider } from '@sathene/ui-web'
+import { ModalsProvider, ThemeProvider } from '@sathene/ui-web'
 
 import TrpcProvider from './Trpc'
 
@@ -15,7 +15,9 @@ export function Providers({ children }: PropsWithChildren) {
             disableTransitionOnChange
         >
             <TrpcProvider>
-                <>{children}</>
+                <ModalsProvider>
+                    <>{children}</>
+                </ModalsProvider>
             </TrpcProvider>
         </ThemeProvider>
     )

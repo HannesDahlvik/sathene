@@ -3,7 +3,6 @@
     "version": "0.0.0",
     "main": "./src/index.ts",
     "scripts": {
-        "build": "pnpm db:push",
         "db:generate": "pnpm with-env drizzle-kit generate:mysql",
         "db:push": "pnpm with-env drizzle-kit push:mysql",
         "db:studio": "pnpm with-env drizzle-kit studio",

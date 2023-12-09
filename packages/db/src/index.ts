@@ -11,3 +11,5 @@ export const db = drizzle(mysqlConnection, {
     mode: env.NODE_ENV === 'production' ? 'planetscale' : 'default',
     schema
 })
+export * from './schema'
+export * from 'drizzle-orm'
