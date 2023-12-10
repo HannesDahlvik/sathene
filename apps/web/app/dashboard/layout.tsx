@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { getServerSession } from '@sathene/api'
 
 import { DashboardSidebar } from './_components/Sidebar'
+import { DashboardTimeline } from './_components/Timeline'
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
     const session = await getServerSession()
@@ -12,13 +13,13 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
     if (!session) return redirect('/login')
 
     return (
-        <div className="grid h-screen w-full grid-cols-[275px_1fr]">
+        <div className="grid h-screen w-full grid-cols-[275px_1fr_400px]">
             <DashboardSidebar />
 
-            <div className="h-screen p-6">
-                <div className="h-full bg-accent border rounded-xl overflow-y-scroll">
-                    {children}
-                </div>
+            <main>{children}</main>
+
+            <div className="bg-accent p-4 border-l overflow-y-hidden">
+                <DashboardTimeline />
             </div>
         </div>
     )

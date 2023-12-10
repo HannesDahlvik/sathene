@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { dayjs } from '@sathene/dayjs'
+import { cn } from '@sathene/ui-web'
 
 export function DashboardTimeline() {
     const hours = Array.from<number>({ length: 24 }).fill(0)
@@ -45,15 +46,25 @@ export function DashboardTimeline() {
 
     return (
         <div
-            className={`relative grid grid-rows-[repeat(24,_125px)] h-full w-full bg-secondary border-l rounded-r-xl overflow-y-scroll`}
+            className="relative grid grid-rows-[repeat(24,_125px)] h-full w-full rounded-lg overflow-y-scroll"
             ref={wrapper}
         >
             {hours.map((_, i) => (
                 <div className="grid grid-cols-[75px_1fr]" key={i}>
-                    <div className="h-full w-full p-2 border-r border-b text-center">
+                    <div
+                        className={cn(
+                            'h-full w-full p-2 border-r border-b text-center',
+                            i === hours.length - 1 && 'border-b-0'
+                        )}
+                    >
                         <p>{i}:00</p>
                     </div>
-                    <div className="h-full w-full p-2 border-r border-b"></div>
+                    <div
+                        className={cn(
+                            'h-full w-full p-2 border-b',
+                            i === hours.length - 1 && 'border-b-0'
+                        )}
+                    ></div>
                 </div>
             ))}
 

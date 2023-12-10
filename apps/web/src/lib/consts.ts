@@ -1,9 +1,9 @@
 import { Calendar, CheckCircle, Layout, StickyNote, type LucideIcon } from 'lucide-react'
 
-interface DashboardLink {
+export interface DashboardLink {
     title: string
-    href: `/dashboard/${string}`
     icon: LucideIcon
+    href?: `/dashboard/${string}`
 }
 
 export const DASHBOARD_LINKS: DashboardLink[] = [

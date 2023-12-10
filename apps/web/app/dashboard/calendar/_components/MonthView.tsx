@@ -16,7 +16,6 @@ interface FormattedDate {
 export function DashboardCalendarMonthView() {
     const [globalDate] = useState(dayjs())
     const [month, setMonth] = useState<FormattedDate[][]>([])
-    const wrapperRef = useRef<HTMLDivElement>(null)
     const { width: windowWidth } = useWindowSize()
 
     useEffect(() => {
@@ -41,7 +40,6 @@ export function DashboardCalendarMonthView() {
             currentDate = currentDate.add(1, 'day')
         }
 
-        calcCalendarWeekHeight(allDates.length)
         setMonth(allDates)
     }
 
@@ -54,38 +52,38 @@ export function DashboardCalendarMonthView() {
         return formatedObj
     }
 
-    const calcCalendarWeekHeight = (numOfWeeks: number) => {
-        if (wrapperRef.current) {
-            wrapperRef.current.style.gridTemplateRows = `repeat(${numOfWeeks}, calc(100% / ${numOfWeeks}))`
-        }
-    }
-
     if (!windowWidth) return null
 
     return (
         <>
-            <div className="flex justify-center items-center">
-                {dayjs.weekdays(true).map((day) => (
-                    <p className="flex justify-center items-center h-10 w-full border-x" key={day}>
+            <div className="flex justify-center items-center w-full bg-accent rounded-t-xl">
+                {dayjs.weekdaysShort(true).map((day) => (
+                    <p
+                        className="flex justify-center items-center h-12 w-full uppercase text-sm"
+                        key={day}
+                    >
                         {day}
                     </p>
                 ))}
             </div>
 
-            <div className="grid h-[calc(100%-40px)] w-full" ref={wrapperRef}>
+            <div className="grid h-[calc(100%-48px)] border rounded-b-xl">
                 {month.map((week, i) => (
                     <div
-                        className={cn('grid h-full')}
+                        className="grid h-full"
                         style={{
-                            gridTemplateColumns: `repeat(7, ${(windowWidth - 325) / 7}px)`
+                            gridTemplateColumns: `repeat(7, ${(windowWidth - 725) / 7}px)`
                         }}
                         key={i}
                     >
                         {week.map((day, j) => (
                             <div
                                 className={cn(
-                                    'relative flex flex-col gap-2 w-full py-1 border',
-                                    !day.isThisMonth && 'opacity-75 bg-muted'
+                                    'relative flex flex-col gap-2 w-full bg-accent py-1 border-r border-b',
+                                    !day.isThisMonth && 'opacity-75 bg-muted',
+                                    j === 6 && 'border-r-0',
+                                    i === month.length - 1 &&
+                                        'border-b-0 first:rounded-bl-xl last:rounded-br-xl'
                                 )}
                                 key={j}
                             >
