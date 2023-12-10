@@ -76,7 +76,7 @@ export function DashboardTasksTaskItem({ task }: Props) {
     }
 
     return (
-        <div className="grid grid-cols-[80px_1fr_1fr_40px] items-center gap-6 px-8 py-4 bg-muted border rounded-lg">
+        <div className="grid grid-cols-[48px_1fr_1fr_48px] items-center p-4 bg-muted border rounded-lg">
             <Checkbox
                 className="h-6 w-6"
                 checked={task.completed}

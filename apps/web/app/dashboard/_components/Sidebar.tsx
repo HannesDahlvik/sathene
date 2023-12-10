@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 
 import { Button, cn, useTheme } from '@sathene/ui-web'
 
+import { version } from '../../../package.json'
 import { LogOut, Moon, Sun } from 'lucide-react'
 import { DASHBOARD_LINKS } from '~/lib/consts'
 import { useAuth } from '~/providers/Auth'
@@ -16,10 +17,12 @@ export function DashboardSidebar() {
 
     return (
         <div className="flex flex-col items-center p-6 pr-0">
-            <div className=" w-full">
+            <div className="flex items-center gap-2 w-full">
                 <Link className="inline-flex items-center gap-2 text-2xl font-bold" href="/">
                     Sathene
                 </Link>
+
+                <p className="p-0.5 px-1 border rounded bg-muted text-xs">v{version}</p>
             </div>
 
             <div className="flex flex-col justify-start gap-2 w-full mt-12">

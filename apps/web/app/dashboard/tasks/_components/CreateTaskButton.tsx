@@ -2,7 +2,7 @@
 
 import { Button, useModals } from '@sathene/ui-web'
 
-import { DashboardCreateTaskModal } from '../../_components/_modals/CreateTask'
+import { DashboardCreateTaskModal } from '../../_modals/CreateTask'
 
 export function DashboardTasksCreateTaskButton() {
     const { openModal } = useModals()
