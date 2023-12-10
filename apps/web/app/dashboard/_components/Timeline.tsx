@@ -11,7 +11,7 @@ export function DashboardTimeline() {
     const wrapper = useRef<HTMLDivElement>(null)
     const hasRun = useRef(false)
 
-    const [needlePosition, setNeedlePosition] = useState(125 * 24)
+    const [needlePosition, setNeedlePosition] = useState(0)
 
     useEffect(() => {
         calcNeedlePos()
@@ -45,7 +45,7 @@ export function DashboardTimeline() {
 
     return (
         <div
-            className={`relative grid grid-rows-[repeat(24,_125px)] h-full w-full bg-secondary border-l rounded-tr-xl rounded-br-xl overflow-y-scroll`}
+            className={`relative grid grid-rows-[repeat(24,_125px)] h-full w-full bg-secondary border-l rounded-r-xl overflow-y-scroll`}
             ref={wrapper}
         >
             {hours.map((_, i) => (

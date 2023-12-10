@@ -35,6 +35,7 @@ export function DashboardSidebar() {
                                     : 'hover:bg-primary/25'
                             )}
                             href={link.href}
+                            key={link.title}
                         >
                             <Icon />
 

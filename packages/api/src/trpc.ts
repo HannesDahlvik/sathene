@@ -1,4 +1,5 @@
 import * as context from 'next/headers'
+import type { NextRequest } from 'next/server'
 
 import { auth } from './auth/lucia'
 import { createContext } from './context'
@@ -12,26 +13,20 @@ const t = initTRPC.context<typeof createContext>().create({
 export const router = t.router
 export const procedure = t.procedure
 export const authedProcedure = procedure.use(async ({ ctx, next }) => {
-    if (ctx.req) {
-        const authRequest = auth.handleRequest(ctx.req?.method, context)
+    const req = ctx.req as NextRequest
+    const authRequest = auth.handleRequest(req ? req.method : 'GET', context)
+    const session = await authRequest.validate()
 
-        let session = await authRequest.validate()
-
-        if (!session)
-            throw new TRPCError({
-                code: 'UNAUTHORIZED',
-                message: 'Not authenticated'
-            })
-
-        return next({
-            ctx: {
-                user: session.user,
-                session
-            }
-        })
-    } else {
+    if (!session)
         throw new TRPCError({
-            code: 'BAD_REQUEST'
+            code: 'UNAUTHORIZED',
+            message: 'Not authenticated'
         })
-    }
+
+    return next({
+        ctx: {
+            user: session.user,
+            session
+        }
+    })
 })

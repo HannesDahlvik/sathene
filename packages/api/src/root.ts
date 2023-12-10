@@ -1,10 +1,10 @@
 import { authRouter } from './routers/auth'
-import { testRouter } from './routers/test'
+import { tasksRouter } from './routers/tasks'
 import { router } from './trpc'
 
 export const satheneRouter = router({
     auth: authRouter,
-    test: testRouter
+    tasks: tasksRouter
 })
 
 export type SatheneRouter = typeof satheneRouter
