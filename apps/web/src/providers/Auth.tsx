@@ -1,12 +1,8 @@
 'use client'
 
-import { type PropsWithChildren, createContext, useContext } from 'react'
-
-import { useRouter } from 'next/navigation'
+import { type PropsWithChildren, createContext } from 'react'
 
 import type { User, Session } from '@sathene/api'
-
-import { api } from '~/lib/api'
 
 type AuthContextType = {
     user: User | undefined
@@ -14,23 +10,6 @@ type AuthContextType = {
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null)
-
-export function useAuth() {
-    const router = useRouter()
-    const logoutMutation = api.auth.logout.useMutation()
-
-    const logout = () => {
-        logoutMutation.mutate(undefined, {
-            onError: (err) => console.error(err),
-            onSuccess: () => {
-                router.replace('/')
-                router.refresh()
-            }
-        })
-    }
-    const ctx = useContext(AuthContext)
-    return { ...ctx, logout }
-}
 
 interface Props extends PropsWithChildren {
     session: Session | null

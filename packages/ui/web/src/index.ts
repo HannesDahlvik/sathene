@@ -2,6 +2,7 @@ export { Button } from './components/button'
 export { Checkbox } from './components/checkbox'
 export { Input } from './components/input'
 export { Label } from './components/label'
+export { Popover, PopoverContent, PopoverTrigger } from './components/popover'
 export { Skeleton } from './components/skeleton'
 export { ThemeProvider, useTheme } from './components/theme-provider'
 export {

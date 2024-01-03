@@ -7,8 +7,8 @@ import { Button, useTheme } from '@sathene/ui-web'
 import packageJson from '../../../package.json'
 import { DashboardSidebarLink } from './SidebarLink'
 import { LogOut, Moon, Sun } from 'lucide-react'
+import { useAuth } from '~/hooks/useAuth'
 import { DASHBOARD_LINKS } from '~/lib/consts'
-import { useAuth } from '~/providers/Auth'
 
 export function DashboardSidebar() {
     const { logout } = useAuth()
