@@ -66,7 +66,7 @@ export function DashboardCalendarMonthView({ onDayClick }: Props) {
     }
 
     return (
-        <div className="h-full w-full">
+        <div className="flex flex-col h-full">
             <div className="flex justify-center items-center w-full bg-accent rounded-t-xl">
                 {dayjs.weekdaysMin(true).map((day) => (
                     <p
@@ -78,7 +78,7 @@ export function DashboardCalendarMonthView({ onDayClick }: Props) {
                 ))}
             </div>
 
-            <div className="grid h-[calc(100%-48px)] border rounded-b-xl">
+            <div className="grid flex-1 h-full border rounded-b-xl">
                 {month.map((week, i) => (
                     <div className="flex h-full" key={i}>
                         {week.map((day, j) => (

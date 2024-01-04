@@ -18,7 +18,7 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
 
             <main>{children}</main>
 
-            <div className="bg-accent p-4 border-l overflow-y-hidden">
+            <div className="bg-accent border-l overflow-y-hidden">
                 <DashboardTimeline />
             </div>
         </div>

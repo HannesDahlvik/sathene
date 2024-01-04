@@ -3,6 +3,18 @@ export { Checkbox } from './components/checkbox'
 export { Input } from './components/input'
 export { Label } from './components/label'
 export { Popover, PopoverContent, PopoverTrigger } from './components/popover'
+export {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectScrollDownButton,
+    SelectScrollUpButton,
+    SelectSeparator,
+    SelectTrigger,
+    SelectValue
+} from './components/select'
 export { Skeleton } from './components/skeleton'
 export { ThemeProvider, useTheme } from './components/theme-provider'
 export {
