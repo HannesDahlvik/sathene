@@ -3,7 +3,7 @@
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@sathene/ui-web'
 
 import { DashboardCalendarMonthView } from '../../calendar/_components/MonthView'
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useDate } from '~/hooks/useDate'
 
 export function DashboardOverviewDateChanger() {
@@ -17,28 +17,20 @@ export function DashboardOverviewDateChanger() {
                 </PopoverTrigger>
 
                 <PopoverContent>
-                    <div className="flex justify-around items-center w-full mb-4">
+                    <div className="flex justify-center items-center gap-4 w-full mb-4">
                         <div className="flex items-center">
                             <button onClick={prevMonth}>
-                                <ChevronsLeft />
-                            </button>
-
-                            <button onClick={() => setDate(date.subtract(1, 'day'))}>
                                 <ChevronLeft />
                             </button>
                         </div>
 
                         <Button size="xs" onClick={resetDate}>
-                            Reset
+                            Today
                         </Button>
 
                         <div className="flex items-center">
-                            <button onClick={() => setDate(date.add(1, 'day'))}>
-                                <ChevronRight />
-                            </button>
-
                             <button onClick={nextMonth}>
-                                <ChevronsRight />
+                                <ChevronRight />
                             </button>
                         </div>
                     </div>

@@ -1,44 +1,47 @@
-'use client'
-
 import { useRouter } from 'next/navigation'
 
+import type { Task } from '@sathene/db'
 import { Button, Input, useModals, useToast } from '@sathene/ui-web'
 
 import { z } from 'zod'
 import { useZodForm } from '~/hooks/useZodForm'
 import { api } from '~/lib/api'
 
-const createTaskSchema = z.object({
+const editTaskSchema = z.object({
     title: z.string().min(3),
     details: z.string().optional(),
     deadline: z.date().optional()
 })
-type CreateTaskSchema = z.infer<typeof createTaskSchema>
+type EditTaskSchema = z.infer<typeof editTaskSchema>
 
-const propsSchema = z.object({
-    listId: z.string().cuid2()
-})
-type Props = z.infer<typeof propsSchema>
+interface Props {
+    task: Task
+}
 
-export function DashboardCreateTaskModal({ listId }: Props) {
+export function DashboardEditTaskModal({ task }: Props) {
     const { closeAllModals } = useModals()
     const { toast } = useToast()
     const router = useRouter()
 
-    const createTaskMutation = api.task.create.useMutation()
+    const editTaskMutation = api.task.edit.useMutation()
 
     const {
         handleSubmit,
         register,
         formState: { errors }
     } = useZodForm({
-        schema: createTaskSchema
+        schema: editTaskSchema,
+        defaultValues: {
+            deadline: task.deadline ?? undefined,
+            title: task.title,
+            details: task.details ?? ''
+        }
     })
 
-    const handleCreateTask = (data: CreateTaskSchema) => {
-        createTaskMutation.mutate(
+    const handleEditTask = (data: EditTaskSchema) => {
+        editTaskMutation.mutate(
             {
-                listId,
+                taskId: task.id,
                 ...data
             },
             {
@@ -58,7 +61,7 @@ export function DashboardCreateTaskModal({ listId }: Props) {
     }
 
     return (
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleCreateTask)}>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleEditTask)}>
             <Input
                 label="Title"
                 type="text"
@@ -89,7 +92,7 @@ export function DashboardCreateTaskModal({ listId }: Props) {
                     Cancel
                 </Button>
 
-                <Button type="submit" loading={createTaskMutation.isLoading}>
+                <Button type="submit" loading={editTaskMutation.isLoading}>
                     Create
                 </Button>
             </div>

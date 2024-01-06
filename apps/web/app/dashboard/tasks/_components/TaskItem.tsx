@@ -4,9 +4,21 @@ import { useRouter } from 'next/navigation'
 
 import { dayjs } from '@sathene/dayjs'
 import { type Task } from '@sathene/db'
-import { Button, Checkbox, useToast } from '@sathene/ui-web'
+import {
+    Button,
+    Checkbox,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+    useModals,
+    useToast
+} from '@sathene/ui-web'
 
-import { Loader2, Trash } from 'lucide-react'
+import { DashboardEditTaskModal } from '../../_modals/EditTask'
+import { Loader2, MoreVertical, Pen, Trash } from 'lucide-react'
 import { z } from 'zod'
 import { api } from '~/lib/api'
 
@@ -25,9 +37,10 @@ interface Props {
 export function DashboardTasksTaskItem({ task }: Props) {
     const { toast } = useToast()
     const router = useRouter()
+    const { openModal } = useModals()
 
-    const toggleCompletedMutation = api.tasks.edit.useMutation()
-    const deleteTaskMutation = api.tasks.delete.useMutation()
+    const toggleCompletedMutation = api.task.edit.useMutation()
+    const deleteTaskMutation = api.task.delete.useMutation()
 
     const handleEditTask = (data: ToggleCompletedSchema) => {
         toggleCompletedMutation.mutate(
@@ -89,21 +102,41 @@ export function DashboardTasksTaskItem({ task }: Props) {
 
             <p className="text-lg font-bold">{task.title}</p>
 
-            <p>{dayjs(task.deadline).format('D/MM/YYYY - HH:mm')}</p>
+            <p>{dayjs(task.deadline).format('DD/MM/YYYY - HH:mm')}</p>
 
             <div className="ml-auto">
-                <Button
-                    variant="outline"
-                    size="icon"
-                    disabled={deleteTaskMutation.isLoading}
-                    onClick={handleDeleteTask}
-                >
-                    {deleteTaskMutation.isLoading ? (
-                        <Loader2 size={20} className="animate-spin" />
-                    ) : (
-                        <Trash className="text-destructive/75" size={20} />
-                    )}
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="icon" className="h-8 w-8">
+                            <MoreVertical size={20} />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild>
+                            <button
+                                className="flex justify-between w-full"
+                                onClick={() => {
+                                    openModal({
+                                        title: 'Edit task',
+                                        children: <DashboardEditTaskModal task={task} />
+                                    })
+                                }}
+                            >
+                                Edit <Pen size={16} />
+                            </button>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <button
+                                className="flex justify-between w-full text-destructive"
+                                onClick={handleDeleteTask}
+                            >
+                                Delete <Trash size={16} />
+                            </button>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
         </div>
     )

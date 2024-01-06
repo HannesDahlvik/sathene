@@ -15,6 +15,27 @@
       "when": 1702111567548,
       "tag": "0001_nappy_madame_web",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1704546163000,
+      "tag": "0002_cuddly_nomad",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1704546562774,
+      "tag": "0003_dark_daimon_hellstrom",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1704546658622,
+      "tag": "0004_empty_robbie_robertson",
+      "breakpoints": true
     }
   ]
 }

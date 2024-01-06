@@ -41,6 +41,21 @@ export const session = mysqlTable('session', {
 })
 export type Session = typeof session.$inferSelect
 
+export const taskList = mysqlTable('task_list', {
+    id: varchar('id', {
+        length: 24
+    }).primaryKey(),
+    userId: varchar('user_id', {
+        length: 15
+    })
+        .notNull()
+        .references(() => user.id),
+    name: varchar('name', {
+        length: 32
+    }).notNull()
+})
+export type TaskList = typeof taskList.$inferSelect
+
 export const task = mysqlTable('task', {
     id: varchar('id', {
         length: 24
@@ -51,10 +66,8 @@ export const task = mysqlTable('task', {
     deadline: datetime('deadline', {
         mode: 'date'
     }),
-    userId: varchar('user_id', {
-        length: 15
-    })
-        .notNull()
-        .references(() => user.id)
+    listId: varchar('list_id', {
+        length: 24
+    }).references(() => taskList.id)
 })
 export type Task = typeof task.$inferSelect

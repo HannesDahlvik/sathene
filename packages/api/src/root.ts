@@ -4,7 +4,7 @@ import { router } from './trpc'
 
 export const satheneRouter = router({
     auth: authRouter,
-    tasks: tasksRouter
+    task: tasksRouter
 })
 
 export type SatheneRouter = typeof satheneRouter

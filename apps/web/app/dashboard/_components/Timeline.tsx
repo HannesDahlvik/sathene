@@ -64,14 +64,11 @@ export function DashboardTimeline() {
                             'h-full w-full p-2 border-b',
                             i === hours.length - 1 && 'border-b-0'
                         )}
-                    ></div>
+                    />
                 </div>
             ))}
 
-            <div
-                className="absolute h-[1px] w-full bg-red-500"
-                style={{ top: needlePosition }}
-            ></div>
+            <div className="absolute h-[1px] w-full bg-red-500" style={{ top: needlePosition }} />
         </div>
     )
 }
