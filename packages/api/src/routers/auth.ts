@@ -1,7 +1,8 @@
 import * as context from 'next/headers'
 
 import { auth } from '../auth/lucia'
-import { authedProcedure, procedure, router } from '../trpc'
+import { satheneRouter } from '../root'
+import { authedProcedure, procedure, router, t } from '../trpc'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 
@@ -91,6 +92,13 @@ export const authRouter = router({
                     code: 'BAD_REQUEST'
                 })
             }
+
+            const caller = satheneRouter.createCaller({
+                type: 'rsc'
+            })
+            await caller.task.list.create({
+                name: 'My Tasks'
+            })
 
             return session.user
         }),

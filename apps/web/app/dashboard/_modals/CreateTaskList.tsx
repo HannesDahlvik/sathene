@@ -16,7 +16,7 @@ export function DashboardCreateTaskListModal() {
     const { toast } = useToast()
     const router = useRouter()
 
-    const createTaskListMutation = api.task.createList.useMutation()
+    const createTaskListMutation = api.task.list.create.useMutation()
 
     const {
         handleSubmit,

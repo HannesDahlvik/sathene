@@ -1,19 +1,14 @@
 import { db, eq } from '@sathene/db'
-import { task, taskList } from '@sathene/db/src/schema'
+import { task } from '@sathene/db/src/schema'
 
 import { createId } from '../lib/utils'
 import { authedProcedure, router } from '../trpc'
+import { taskListRouter } from './taskList'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 
-export const tasksRouter = router({
-    lists: authedProcedure.query(async ({ ctx }) => {
-        const taskLists = await db.query.taskList.findMany({
-            where: (task, { eq }) => eq(task.userId, ctx.user.userId)
-        })
-
-        return taskLists
-    }),
+export const taskRouter = router({
+    list: taskListRouter,
     all: authedProcedure
         .input(
             z.object({
@@ -26,29 +21,6 @@ export const tasksRouter = router({
             })
 
             return tasks
-        }),
-    createList: authedProcedure
-        .input(
-            z.object({
-                name: z.string().min(3)
-            })
-        )
-        .mutation(async ({ ctx, input }) => {
-            await db
-                .insert(taskList)
-                .values({
-                    id: createId(),
-                    userId: ctx.user.userId,
-                    name: input.name
-                })
-                .catch((err) => {
-                    throw new TRPCError({
-                        code: 'INTERNAL_SERVER_ERROR',
-                        message: err.message
-                    })
-                })
-
-            return null
         }),
     create: authedProcedure
         .input(
