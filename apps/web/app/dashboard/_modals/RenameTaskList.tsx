@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-
 import { useRouter } from 'next/navigation'
 
 import type { TaskList } from '@sathene/db'
@@ -30,7 +28,6 @@ export function DashboardRenameTaskList({ taskList }: Props) {
     const {
         handleSubmit,
         register,
-        setFocus,
         formState: { errors }
     } = useZodForm({
         schema: renameTaskListSchema,
@@ -38,10 +35,6 @@ export function DashboardRenameTaskList({ taskList }: Props) {
             title: taskList.name
         }
     })
-
-    useEffect(() => {
-        setFocus('title')
-    }, [])
 
     const handleRenameTaskList = (data: RenameTaskListSchema) => {
         renameTaskListMutation.mutate(
@@ -71,6 +64,7 @@ export function DashboardRenameTaskList({ taskList }: Props) {
                 label="New Name"
                 type="text"
                 required
+                autoFocus
                 error={errors.title?.message}
                 {...register('title')}
             />

@@ -28,7 +28,7 @@ export const taskRouter = router({
                 listId: z.string().cuid2(),
                 title: z.string().min(3),
                 details: z.string().optional(),
-                deadline: z.date().optional()
+                deadline: z.date().nullish()
             })
         )
         .mutation(async ({ input }) => {

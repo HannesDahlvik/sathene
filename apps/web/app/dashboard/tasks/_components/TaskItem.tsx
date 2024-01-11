@@ -13,6 +13,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
+    cn,
     useModals,
     useToast
 } from '@sathene/ui-web'
@@ -89,7 +90,12 @@ export function DashboardTasksTaskItem({ task }: Props) {
     }
 
     return (
-        <div className="grid grid-cols-[48px_1fr_1fr_48px] items-center p-4 bg-muted border rounded-lg">
+        <div
+            className={cn(
+                'grid items-center gap-4 p-4 bg-muted border rounded-lg',
+                task.deadline ? 'grid-cols-[0.2fr_3fr_3fr_1fr]' : 'grid-cols-[0.2fr_6fr_1fr]'
+            )}
+        >
             <Checkbox
                 className="h-6 w-6"
                 checked={task.completed}
@@ -100,9 +106,9 @@ export function DashboardTasksTaskItem({ task }: Props) {
                 }
             />
 
-            <p className="text-lg font-bold">{task.title}</p>
+            <p className="font-bold">{task.title}</p>
 
-            <p>{dayjs(task.deadline).format('DD/MM/YYYY - HH:mm')}</p>
+            {task.deadline && <p>{dayjs(task.deadline).format('DD/MM/YYYY - HH:mm')}</p>}
 
             <div className="ml-auto">
                 <DropdownMenu>

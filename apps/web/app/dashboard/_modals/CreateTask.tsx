@@ -11,14 +11,13 @@ import { api } from '~/lib/api'
 const createTaskSchema = z.object({
     title: z.string().min(3),
     details: z.string().optional(),
-    deadline: z.date().optional()
+    deadline: z.date().nullish()
 })
 type CreateTaskSchema = z.infer<typeof createTaskSchema>
 
-const propsSchema = z.object({
-    listId: z.string().cuid2()
-})
-type Props = z.infer<typeof propsSchema>
+interface Props {
+    listId: string
+}
 
 export function DashboardCreateTaskModal({ listId }: Props) {
     const { closeAllModals } = useModals()
@@ -77,7 +76,7 @@ export function DashboardCreateTaskModal({ listId }: Props) {
             <Input
                 label="Deadline"
                 type="datetime-local"
-                error={errors.deadline?.message}
+                error={errors.deadline?.message?.toString()}
                 {...register('deadline', {
                     valueAsDate: true,
                     required: false
