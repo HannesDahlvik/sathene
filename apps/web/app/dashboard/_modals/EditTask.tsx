@@ -93,7 +93,7 @@ export function DashboardEditTaskModal({ task }: Props) {
                 </Button>
 
                 <Button type="submit" loading={editTaskMutation.isLoading}>
-                    Create
+                    Save
                 </Button>
             </div>
         </form>

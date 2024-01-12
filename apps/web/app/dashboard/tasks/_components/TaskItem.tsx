@@ -97,7 +97,7 @@ export function DashboardTasksTaskItem({ task }: Props) {
             )}
         >
             <Checkbox
-                className="h-6 w-6"
+                className="h-5 w-5 rounded-full"
                 checked={task.completed}
                 onClick={() =>
                     handleEditTask({

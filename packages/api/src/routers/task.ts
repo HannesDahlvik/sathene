@@ -16,11 +16,17 @@ export const taskRouter = router({
             })
         )
         .query(async ({ input }) => {
-            const tasks = await db.query.task.findMany({
+            const allTasks = await db.query.task.findMany({
                 where: (task, { eq }) => eq(task.listId, input.listId)
             })
 
-            return tasks
+            const completedTasks = allTasks.filter((row) => row.completed)
+            const tasks = allTasks.filter((row) => !row.completed)
+
+            return {
+                tasks,
+                completedTasks
+            }
         }),
     create: authedProcedure
         .input(
@@ -28,7 +34,7 @@ export const taskRouter = router({
                 listId: z.string().cuid2(),
                 title: z.string().min(3),
                 details: z.string().optional(),
-                deadline: z.date().nullish()
+                deadline: z.coerce.string().optional()
             })
         )
         .mutation(async ({ input }) => {
@@ -38,7 +44,7 @@ export const taskRouter = router({
                     listId: input.listId,
                     id: createId(),
                     title: input.title,
-                    deadline: input.deadline,
+                    deadline: input.deadline ? new Date(input.deadline) : null,
                     details: input.details
                 })
                 .catch((err) => {

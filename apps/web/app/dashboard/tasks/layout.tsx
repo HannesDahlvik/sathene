@@ -14,7 +14,7 @@ export default async function DashboardTasksLayout({ children }: PropsWithChildr
 
             <DashboardTasksWrapper lists={taskLists} />
 
-            {children}
+            <div className="overflow-scroll">{children}</div>
         </div>
     )
 }

@@ -141,7 +141,7 @@ export function DashboardTasksWrapper({ lists }: Props) {
                         })
                     }
                 >
-                    Create Task
+                    Create task
                 </Button>
             </div>
         </div>

@@ -11,7 +11,7 @@ import { api } from '~/lib/api'
 const createTaskSchema = z.object({
     title: z.string().min(3),
     details: z.string().optional(),
-    deadline: z.date().nullish()
+    deadline: z.coerce.string().optional()
 })
 type CreateTaskSchema = z.infer<typeof createTaskSchema>
 
@@ -76,9 +76,8 @@ export function DashboardCreateTaskModal({ listId }: Props) {
             <Input
                 label="Deadline"
                 type="datetime-local"
-                error={errors.deadline?.message?.toString()}
+                error={errors.deadline?.message}
                 {...register('deadline', {
-                    valueAsDate: true,
                     required: false
                 })}
             />

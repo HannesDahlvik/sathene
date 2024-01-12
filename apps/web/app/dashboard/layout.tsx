@@ -16,7 +16,7 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
         <div className="grid h-screen w-full grid-cols-[275px_1fr_400px]">
             <DashboardSidebar />
 
-            <main>{children}</main>
+            <main className="overflow-auto">{children}</main>
 
             <div className="bg-accent border-l overflow-y-hidden">
                 <DashboardTimeline />
