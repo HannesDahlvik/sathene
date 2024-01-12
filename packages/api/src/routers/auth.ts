@@ -2,7 +2,7 @@ import * as context from 'next/headers'
 
 import { auth } from '../auth/lucia'
 import { satheneRouter } from '../root'
-import { authedProcedure, procedure, router, t } from '../trpc'
+import { authedProcedure, procedure, router } from '../trpc'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 

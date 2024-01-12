@@ -29,7 +29,9 @@ export function DashboardSidebarLink({ link, onClick }: Props) {
         <button
             className={cn(
                 'flex items-center gap-2 h-12 w-full rounded-xl px-4 font-bold',
-                pathname.includes(link.href) ? 'bg-primary text-background' : 'hover:bg-primary/25'
+                pathname.includes(link.href as string)
+                    ? 'bg-primary text-background'
+                    : 'hover:bg-primary/25'
             )}
             onClick={handleClick}
             key={link.title}
