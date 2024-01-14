@@ -14,12 +14,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
     cn,
-    useModals,
-    useToast
+    useModals
 } from '@sathene/ui-web'
 
 import { DashboardEditTaskModal } from '../../_modals/EditTask'
-import { Loader2, MoreVertical, Pen, Trash } from 'lucide-react'
+import { MoreVertical, Pen, Trash } from 'lucide-react'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { api } from '~/lib/api'
 
@@ -36,7 +36,6 @@ interface Props {
 }
 
 export function DashboardTasksTaskItem({ task }: Props) {
-    const { toast } = useToast()
     const router = useRouter()
     const { openModal } = useModals()
 
@@ -51,11 +50,7 @@ export function DashboardTasksTaskItem({ task }: Props) {
             },
             {
                 onError: (err) => {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        variant: 'destructive'
-                    })
+                    toast.error(err.message)
                 },
                 onSuccess: () => {
                     router.refresh()
@@ -71,19 +66,12 @@ export function DashboardTasksTaskItem({ task }: Props) {
             },
             {
                 onError: (err) => {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        variant: 'destructive'
-                    })
+                    toast.error(err.message)
                 },
 
                 onSuccess: () => {
                     router.refresh()
-                    toast({
-                        title: 'Success',
-                        description: `Successfully deleted "${task.title}"`
-                    })
+                    toast.success(`Successfully deleted "${task.title}"`)
                 }
             }
         )

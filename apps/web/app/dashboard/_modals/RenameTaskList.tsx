@@ -3,8 +3,9 @@
 import { useRouter } from 'next/navigation'
 
 import type { TaskList } from '@sathene/db'
-import { Button, Input, useModals, useToast } from '@sathene/ui-web'
+import { Button, Input, useModals } from '@sathene/ui-web'
 
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { useZodForm } from '~/hooks/useZodForm'
 import { api } from '~/lib/api'
@@ -20,7 +21,6 @@ interface Props {
 
 export function DashboardRenameTaskList({ taskList }: Props) {
     const { closeAllModals } = useModals()
-    const { toast } = useToast()
     const router = useRouter()
 
     const renameTaskListMutation = api.task.list.rename.useMutation()
@@ -44,11 +44,7 @@ export function DashboardRenameTaskList({ taskList }: Props) {
             },
             {
                 onError: (err) => {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        variant: 'destructive'
-                    })
+                    toast.error(err.message)
                 },
                 onSuccess: () => {
                     router.refresh()

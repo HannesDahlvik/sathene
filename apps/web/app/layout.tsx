@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <body>
                 <AuthProvider session={session}>
                     <Providers>
-                        <Toaster />
+                        <Toaster position="bottom-center" />
 
                         <>{children}</>
                     </Providers>

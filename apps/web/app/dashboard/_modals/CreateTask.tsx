@@ -2,8 +2,9 @@
 
 import { useRouter } from 'next/navigation'
 
-import { Button, Input, useModals, useToast } from '@sathene/ui-web'
+import { Button, Input, useModals } from '@sathene/ui-web'
 
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { useZodForm } from '~/hooks/useZodForm'
 import { api } from '~/lib/api'
@@ -21,7 +22,6 @@ interface Props {
 
 export function DashboardCreateTaskModal({ listId }: Props) {
     const { closeAllModals } = useModals()
-    const { toast } = useToast()
     const router = useRouter()
 
     const createTaskMutation = api.task.create.useMutation()
@@ -42,11 +42,7 @@ export function DashboardCreateTaskModal({ listId }: Props) {
             },
             {
                 onError: (err) => {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        variant: 'destructive'
-                    })
+                    toast.error(err.message)
                 },
                 onSuccess: () => {
                     router.refresh()

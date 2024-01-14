@@ -1,7 +1,8 @@
 import { useRouter } from 'next/navigation'
 
-import { Button, Input, useModals, useToast } from '@sathene/ui-web'
+import { Button, Input, useModals } from '@sathene/ui-web'
 
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { useZodForm } from '~/hooks/useZodForm'
 import { api } from '~/lib/api'
@@ -13,7 +14,6 @@ type CreateTaskListSchema = z.infer<typeof createTaskListSchema>
 
 export function DashboardCreateTaskListModal() {
     const { closeAllModals } = useModals()
-    const { toast } = useToast()
     const router = useRouter()
 
     const createTaskListMutation = api.task.list.create.useMutation()
@@ -29,11 +29,7 @@ export function DashboardCreateTaskListModal() {
     const handleCreateTaskList = (data: CreateTaskListSchema) => {
         createTaskListMutation.mutate(data, {
             onError: (err) => {
-                toast({
-                    title: 'Error',
-                    description: err.message,
-                    variant: 'destructive'
-                })
+                toast.error(err.message)
             },
             onSuccess: () => {
                 router.refresh()

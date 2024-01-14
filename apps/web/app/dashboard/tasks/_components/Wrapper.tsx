@@ -16,14 +16,14 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-    useModals,
-    useToast
+    useModals
 } from '@sathene/ui-web'
 
 import { DashboardCreateTaskModal } from '../../_modals/CreateTask'
 import { DashboardCreateTaskListModal } from '../../_modals/CreateTaskList'
 import { DashboardRenameTaskList } from '../../_modals/RenameTaskList'
 import { MoreVertical, Plus } from 'lucide-react'
+import { toast } from 'sonner'
 import { api } from '~/lib/api'
 
 interface Props {
@@ -32,9 +32,8 @@ interface Props {
 
 export function DashboardTasksWrapper({ lists }: Props) {
     const router = useRouter()
-    const pararms = useParams<{ listId: string }>()
+    const params = useParams<{ listId: string }>()
     const { openModal } = useModals()
-    const { toast } = useToast()
 
     const deleteListMutation = api.task.list.delete.useMutation()
 
@@ -45,23 +44,17 @@ export function DashboardTasksWrapper({ lists }: Props) {
     const handleDeleteList = () => {
         deleteListMutation.mutate(
             {
-                listid: pararms.listId
+                listid: params.listId
             },
             {
                 onError: (err) => {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        variant: 'destructive'
-                    })
+                    toast.error(err.message)
                 },
                 onSuccess: () => {
+                    const currentList = lists.filter((val) => val.id === params.listId)[0]
                     router.push(`/dashboard/tasks/${lists[lists.length - 1]?.id}`)
                     router.refresh()
-                    toast({
-                        title: 'Success',
-                        description: `Successfully deleted "${pararms.listId}"`
-                    })
+                    toast(`Successfully deleted "${currentList?.name}"`)
                 }
             }
         )
@@ -71,7 +64,7 @@ export function DashboardTasksWrapper({ lists }: Props) {
         <div className="flex justify-between items-center border-b pb-4">
             <div className="flex items-center gap-2">
                 <Select
-                    value={lists.find((list) => list.id === pararms.listId)?.id}
+                    value={lists.find((list) => list.id === params.listId)?.id}
                     onValueChange={(val) => router.push(`/dashboard/tasks/${val}`)}
                 >
                     <SelectTrigger className="w-[180px]">
@@ -103,7 +96,7 @@ export function DashboardTasksWrapper({ lists }: Props) {
                                         <DashboardRenameTaskList
                                             taskList={
                                                 lists.find(
-                                                    (list) => list.id === pararms.listId
+                                                    (list) => list.id === params.listId
                                                 ) as TaskList
                                             }
                                         />
@@ -137,7 +130,7 @@ export function DashboardTasksWrapper({ lists }: Props) {
                     onClick={() =>
                         openModal({
                             title: 'Create task',
-                            children: <DashboardCreateTaskModal listId={pararms.listId} />
+                            children: <DashboardCreateTaskModal listId={params.listId} />
                         })
                     }
                 >
