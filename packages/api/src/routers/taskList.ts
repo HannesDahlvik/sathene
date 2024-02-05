@@ -1,14 +1,15 @@
 import { and, db, eq, taskList } from '@sathene/db'
 
+import { createId } from '../lib/utils'
 import { authedProcedure, router } from '../trpc'
-import { createId } from '@paralleldrive/cuid2'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 
 export const taskListRouter = router({
     all: authedProcedure.query(async ({ ctx }) => {
         const taskLists = await db.query.taskList.findMany({
-            where: (task, { eq }) => eq(task.userId, ctx.user.userId)
+            where: (col, { eq }) => eq(col.userId, ctx.user.userId),
+            orderBy: (col, { asc }) => asc(col.createdAt)
         })
 
         return taskLists

@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm'
 import { mysqlTable, bigint, varchar, text, boolean, datetime } from 'drizzle-orm/mysql-core'
 
 export const user = mysqlTable('user', {
@@ -52,7 +53,10 @@ export const taskList = mysqlTable('task_list', {
         .references(() => user.id),
     name: varchar('name', {
         length: 32
-    }).notNull()
+    }).notNull(),
+    createdAt: datetime('created_at')
+        .notNull()
+        .default(sql`CURRENT_TIMESTAMP`)
 })
 export type TaskList = typeof taskList.$inferSelect
 

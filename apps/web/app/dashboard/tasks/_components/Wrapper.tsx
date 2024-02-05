@@ -38,7 +38,10 @@ export function DashboardTasksWrapper({ lists }: Props) {
     const deleteListMutation = api.task.list.delete.useMutation()
 
     useEffect(() => {
-        router.push(`/dashboard/tasks/${lists[0]?.id}`)
+        const firstListId = lists[0]?.id
+        if (firstListId) {
+            router.push(`/dashboard/tasks/${firstListId}`)
+        }
     }, [])
 
     const handleDeleteList = () => {
@@ -52,7 +55,7 @@ export function DashboardTasksWrapper({ lists }: Props) {
                 },
                 onSuccess: () => {
                     const currentList = lists.filter((val) => val.id === params.listId)[0]
-                    router.push(`/dashboard/tasks/${lists[lists.length - 1]?.id}`)
+                    router.push(`/dashboard/tasks/${lists[0]?.id}`)
                     router.refresh()
                     toast(`Successfully deleted "${currentList?.name}"`)
                 }
