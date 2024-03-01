@@ -8,7 +8,7 @@ import { DashboardSidebar } from './_components/Sidebar'
 import { DashboardTimeline } from './_components/Timeline'
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
-    const session = await getServerSession()
+    const { session } = await getServerSession()
 
     if (!session) return redirect('/login')
 

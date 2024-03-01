@@ -22,12 +22,12 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const session = await getServerSession()
+    const { user } = await getServerSession()
 
     return (
         <html lang="en" className={lato.variable}>
             <body>
-                <AuthProvider session={session}>
+                <AuthProvider user={user}>
                     <Providers>
                         <Toaster position="bottom-center" />
 

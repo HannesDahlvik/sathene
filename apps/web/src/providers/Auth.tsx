@@ -2,25 +2,23 @@
 
 import { type PropsWithChildren, createContext } from 'react'
 
-import type { User, Session } from '@sathene/api'
+import type { User } from '@sathene/api'
 
 type AuthContextType = {
-    user: User | undefined
-    state: 'idle' | 'active' | undefined
+    user: User | null
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 interface Props extends PropsWithChildren {
-    session: Session | null
+    user: User | null
 }
 
-export default function AuthProvider({ children, session }: Props) {
+export default function AuthProvider({ children, user }: Props) {
     return (
         <AuthContext.Provider
             value={{
-                user: session?.user,
-                state: session?.state
+                user
             }}
         >
             <>{children}</>

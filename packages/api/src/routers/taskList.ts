@@ -8,7 +8,7 @@ import { z } from 'zod'
 export const taskListRouter = router({
     all: authedProcedure.query(async ({ ctx }) => {
         const taskLists = await db.query.taskList.findMany({
-            where: (col, { eq }) => eq(col.userId, ctx.user.userId),
+            where: (col, { eq }) => eq(col.userId, ctx.user.id),
             orderBy: (col, { asc }) => asc(col.createdAt)
         })
 
@@ -25,7 +25,7 @@ export const taskListRouter = router({
                 .insert(taskList)
                 .values({
                     id: createId(),
-                    userId: ctx.user.userId,
+                    userId: ctx.user.id,
                     name: input.name
                 })
                 .catch((err) => {

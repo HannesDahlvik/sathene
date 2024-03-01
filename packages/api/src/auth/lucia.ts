@@ -1,36 +1,41 @@
-import { cache } from 'react'
-
-import * as context from 'next/headers'
-
-import { mysqlConnection } from '@sathene/db'
+import { db, session, user } from '@sathene/db'
 import { env } from '@sathene/env'
 
-import { mysql2 } from '@lucia-auth/adapter-mysql'
-import { lucia } from 'lucia'
-import { nextjs_future } from 'lucia/middleware'
-import 'lucia/polyfill/node'
+import { DrizzleMySQLAdapter } from '@lucia-auth/adapter-drizzle'
+import { Lucia } from 'lucia'
+import { webcrypto } from 'node:crypto'
 
-export const auth = lucia({
-    env: env.NODE_ENV === 'production' ? 'PROD' : 'DEV',
-    middleware: nextjs_future(),
-    adapter: mysql2(mysqlConnection, {
-        key: 'key',
-        session: 'session',
-        user: 'user'
-    }),
+globalThis.crypto = webcrypto as Crypto
+
+const adapter = new DrizzleMySQLAdapter(db, session, user)
+
+export const auth = new Lucia(adapter, {
     sessionCookie: {
-        expires: false
+        expires: false,
+        attributes: {
+            secure: env.NODE_ENV === 'production'
+        }
     },
     getUserAttributes: (data) => {
         return {
-            username: data.username
+            id: data.id,
+            username: data.username,
+            email: data.email,
+            email_verified: data.email_verified
         }
     }
 })
 
 export type Auth = typeof auth
 
-export const getServerSession = cache(() => {
-    const authRequest = auth.handleRequest('GET', context)
-    return authRequest.validate()
-})
+declare module 'lucia' {
+    interface Register {
+        Lucia: typeof auth
+        DatabaseUserAttributes: {
+            id: string
+            username: string
+            email: string
+            email_verified: boolean
+        }
+    }
+}
