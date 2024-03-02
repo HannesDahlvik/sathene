@@ -12,6 +12,7 @@
         "@sathene/env": "workspace:^",
         "@trpc/client": "^10",
         "@trpc/server": "^10",
+        "argon2": "^0.40.1",
         "lucia": "^3",
         "next": "^14",
         "oslo": "^1",
