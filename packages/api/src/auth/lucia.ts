@@ -3,9 +3,6 @@ import { env } from '@sathene/env'
 
 import { DrizzleMySQLAdapter } from '@lucia-auth/adapter-drizzle'
 import { Lucia } from 'lucia'
-import { webcrypto } from 'node:crypto'
-
-globalThis.crypto = webcrypto as Crypto
 
 const adapter = new DrizzleMySQLAdapter(db, session, user)
 

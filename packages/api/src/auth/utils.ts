@@ -30,12 +30,7 @@ export const getServerSession = cache(
                 const sessionCookie = auth.createBlankSessionCookie()
                 cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
             }
-        } catch {
-            throw new TRPCError({
-                code: 'INTERNAL_SERVER_ERROR',
-                message: 'Failed to create session cookie'
-            })
-        }
+        } catch {}
 
         return result
     }
