@@ -2,6 +2,7 @@
 const nextConfig = {
     reactStrictMode: false,
     transpilePackages: ['@sathene/api', '@sathene/db'],
+    staticPageGenerationTimeout: 10000,
     experimental: {
         serverComponentsExternalPackages: ['oslo']
     },
