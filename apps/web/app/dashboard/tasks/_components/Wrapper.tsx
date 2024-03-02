@@ -42,7 +42,22 @@ export function DashboardTasksWrapper({ lists }: Props) {
         if (firstListId) {
             router.push(`/dashboard/tasks/${firstListId}`)
         }
+
+        document.addEventListener('keypress', handleKeypress)
+
+        return () => {
+            document.removeEventListener('keypress', handleKeypress)
+        }
     }, [])
+
+    const handleKeypress = (ev: KeyboardEvent) => {
+        if (ev.key === 'c') {
+            openModal({
+                title: 'Create task',
+                children: <DashboardCreateTaskModal listId={params.listId} />
+            })
+        }
+    }
 
     const handleDeleteList = () => {
         deleteListMutation.mutate(
