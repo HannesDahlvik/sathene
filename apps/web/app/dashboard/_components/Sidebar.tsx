@@ -4,7 +4,6 @@ import Link from 'next/link'
 
 import { Button, useTheme } from '@sathene/ui-web'
 
-import packageJson from '../../../package.json'
 import { DashboardSidebarLink } from './SidebarLink'
 import { LogOut, Moon, Sun } from 'lucide-react'
 import { useAuth } from '~/hooks/useAuth'
@@ -21,10 +20,6 @@ export function DashboardSidebar() {
                     <Link className="inline-flex items-center gap-2 text-2xl font-bold" href="/">
                         Sathene
                     </Link>
-
-                    <p className="p-0.5 px-1 border rounded bg-muted text-xs">
-                        v{packageJson.version}
-                    </p>
                 </div>
 
                 <Button
