@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from 'react'
+
 import type { Metadata } from 'next'
 import { Lato } from 'next/font/google'
 
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: PropsWithChildren) {
     const { user } = await getServerSession()
 
     return (

@@ -1,4 +1,4 @@
-import * as context from 'next/headers'
+import { cookies } from 'next/headers'
 
 import { db, user } from '@sathene/db'
 
@@ -48,7 +48,7 @@ export const authRouter = router({
 
             const session = await auth.createSession(existingUser.id, {})
             const sessionCookie = auth.createSessionCookie(session.id)
-            context.cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+            cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 
             return session
         }),
@@ -86,9 +86,7 @@ export const authRouter = router({
 
                 const session = await auth.createSession(userId, {})
                 const sessionCookie = auth.createSessionCookie(session.id)
-                context
-                    .cookies()
-                    .set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+                cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 
                 const caller = t.createCallerFactory(satheneRouter)({
                     type: 'rsc'
@@ -126,7 +124,7 @@ export const authRouter = router({
         await auth.invalidateSession(ctx.session.id)
 
         const sessionCookie = auth.createBlankSessionCookie()
-        context.cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+        cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 
         return null
     })

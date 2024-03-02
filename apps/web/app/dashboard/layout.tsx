@@ -7,6 +7,8 @@ import { getServerSession } from '@sathene/api'
 import { DashboardSidebar } from './_components/Sidebar'
 import { DashboardTimeline } from './_components/Timeline'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardLayout({ children }: PropsWithChildren) {
     const { session } = await getServerSession()
 
