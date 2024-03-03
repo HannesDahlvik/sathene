@@ -1,12 +1,14 @@
 {
     "name": "sathene",
+    "version": "0.1.1",
     "private": true,
     "packageManager": "pnpm@8.9.0",
     "scripts": {
         "web": "pnpm --filter @sathene/web --",
         "build": "turbo build",
         "lint": "turbo lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\""
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "bump": "node ./scripts/bump.js"
     },
     "devDependencies": {
         "@sathene/eslint": "workspace:*",
