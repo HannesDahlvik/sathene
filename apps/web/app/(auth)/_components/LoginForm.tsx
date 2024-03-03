@@ -2,8 +2,9 @@
 
 import { useRouter } from 'next/navigation'
 
-import { Button, Input, useToast } from '@sathene/ui-web'
+import { Button, Input } from '@sathene/ui-web'
 
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { useZodForm } from '~/hooks/useZodForm'
 import { api } from '~/lib/api'
@@ -15,7 +16,6 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>
 
 export function AuthLoginForm() {
-    const { toast } = useToast()
     const router = useRouter()
 
     const loginMutation = api.auth.login.useMutation()
@@ -36,11 +36,7 @@ export function AuthLoginForm() {
             },
             {
                 onError: (err) => {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        variant: 'destructive'
-                    })
+                    toast.error(err.message)
                 },
                 onSuccess: () => {
                     router.replace('/dashboard')

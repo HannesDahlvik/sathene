@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { getServerSession } from '@sathene/api'
 
 export default async function AuthLayout({ children }: PropsWithChildren) {
-    const session = await getServerSession()
+    const { session } = await getServerSession()
 
     if (session) return redirect('/dashboard')
 

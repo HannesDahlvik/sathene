@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from 'react'
+
 import type { Metadata } from 'next'
 import { Lato } from 'next/font/google'
 
@@ -21,15 +23,15 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const session = await getServerSession()
+export default async function RootLayout({ children }: PropsWithChildren) {
+    const { user } = await getServerSession()
 
     return (
         <html lang="en" className={lato.variable}>
             <body>
-                <AuthProvider session={session}>
+                <AuthProvider user={user}>
                     <Providers>
-                        <Toaster />
+                        <Toaster position="bottom-center" />
 
                         <>{children}</>
                     </Providers>

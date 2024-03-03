@@ -4,9 +4,22 @@ import { useRouter } from 'next/navigation'
 
 import { dayjs } from '@sathene/dayjs'
 import { type Task } from '@sathene/db'
-import { Button, Checkbox, useToast } from '@sathene/ui-web'
+import {
+    Button,
+    Checkbox,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+    cn,
+    useModals
+} from '@sathene/ui-web'
 
-import { Loader2, Trash } from 'lucide-react'
+import { DashboardEditTaskModal } from '../../_modals/EditTask'
+import { MoreVertical, Pen, Trash } from 'lucide-react'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { api } from '~/lib/api'
 
@@ -23,11 +36,11 @@ interface Props {
 }
 
 export function DashboardTasksTaskItem({ task }: Props) {
-    const { toast } = useToast()
     const router = useRouter()
+    const { openModal } = useModals()
 
-    const toggleCompletedMutation = api.tasks.edit.useMutation()
-    const deleteTaskMutation = api.tasks.delete.useMutation()
+    const toggleCompletedMutation = api.task.edit.useMutation()
+    const deleteTaskMutation = api.task.delete.useMutation()
 
     const handleEditTask = (data: ToggleCompletedSchema) => {
         toggleCompletedMutation.mutate(
@@ -37,11 +50,7 @@ export function DashboardTasksTaskItem({ task }: Props) {
             },
             {
                 onError: (err) => {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        variant: 'destructive'
-                    })
+                    toast.error(err.message)
                 },
                 onSuccess: () => {
                     router.refresh()
@@ -57,28 +66,26 @@ export function DashboardTasksTaskItem({ task }: Props) {
             },
             {
                 onError: (err) => {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        variant: 'destructive'
-                    })
+                    toast.error(err.message)
                 },
 
                 onSuccess: () => {
                     router.refresh()
-                    toast({
-                        title: 'Success',
-                        description: `Successfully deleted "${task.title}"`
-                    })
+                    toast.success(`Successfully deleted "${task.title}"`)
                 }
             }
         )
     }
 
     return (
-        <div className="grid grid-cols-[80px_1fr_1fr_40px] items-center gap-6 px-8 py-4 bg-muted border rounded-lg">
+        <div
+            className={cn(
+                'grid items-center gap-4 p-4 bg-muted border rounded-lg',
+                task.deadline ? 'grid-cols-[0.2fr_3fr_3fr_1fr]' : 'grid-cols-[0.2fr_6fr_1fr]'
+            )}
+        >
             <Checkbox
-                className="h-6 w-6"
+                className="h-5 w-5 rounded-full"
                 checked={task.completed}
                 onClick={() =>
                     handleEditTask({
@@ -87,23 +94,43 @@ export function DashboardTasksTaskItem({ task }: Props) {
                 }
             />
 
-            <p className="text-lg font-bold">{task.title}</p>
+            <p className="font-bold">{task.title}</p>
 
-            <p>{dayjs(task.deadline).format('D/MM/YYYY - HH:mm')}</p>
+            {task.deadline && <p>{dayjs(task.deadline).format('DD/MM/YYYY - HH:mm')}</p>}
 
             <div className="ml-auto">
-                <Button
-                    variant="outline"
-                    size="icon"
-                    disabled={deleteTaskMutation.isLoading}
-                    onClick={handleDeleteTask}
-                >
-                    {deleteTaskMutation.isLoading ? (
-                        <Loader2 size={20} className="animate-spin" />
-                    ) : (
-                        <Trash className="text-destructive/75" size={20} />
-                    )}
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="icon" className="h-8 w-8">
+                            <MoreVertical size={20} />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild>
+                            <button
+                                className="flex justify-between w-full"
+                                onClick={() => {
+                                    openModal({
+                                        title: 'Edit task',
+                                        children: <DashboardEditTaskModal task={task} />
+                                    })
+                                }}
+                            >
+                                Edit <Pen size={16} />
+                            </button>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <button
+                                className="flex justify-between w-full text-destructive"
+                                onClick={handleDeleteTask}
+                            >
+                                Delete <Trash size={16} />
+                            </button>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
         </div>
     )

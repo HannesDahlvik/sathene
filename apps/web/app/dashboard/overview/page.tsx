@@ -1,13 +1,13 @@
-import { DashboardTimeline } from '../_components/Timeline'
+import { DashboardOverviewDateChanger } from './_components/DateChanger'
 
-export default function DashboardOverviewPage() {
+export default async function DashboardOverviewPage() {
     return (
-        <div className="grid grid-cols-[1fr_400px] h-full">
-            <div className="w-full p-6">
-                <h2>Dashboard Overview Page</h2>
-            </div>
+        <div className="flex flex-col gap-4 h-full p-8">
+            <div className="flex items-center gap-4">
+                <h2>Overview</h2>
 
-            <DashboardTimeline />
+                <DashboardOverviewDateChanger />
+            </div>
         </div>
     )
 }

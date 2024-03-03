@@ -1,36 +1,32 @@
-import { db, eq } from '@sathene/db'
-import { task } from '@sathene/db/src/schema'
+import { and, db, eq, taskList } from '@sathene/db'
 
 import { createId } from '../lib/utils'
 import { authedProcedure, router } from '../trpc'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 
-export const tasksRouter = router({
+export const taskListRouter = router({
     all: authedProcedure.query(async ({ ctx }) => {
-        const tasks = await db.query.task.findMany({
-            where: (task, { eq }) => eq(task.userId, ctx.user.userId)
+        const taskLists = await db.query.taskList.findMany({
+            where: (col, { eq }) => eq(col.userId, ctx.user.id),
+            orderBy: (col, { asc }) => asc(col.createdAt)
         })
 
-        return tasks
+        return taskLists
     }),
     create: authedProcedure
         .input(
             z.object({
-                title: z.string().min(3),
-                details: z.string().optional(),
-                deadline: z.date().optional()
+                name: z.string().min(3)
             })
         )
         .mutation(async ({ ctx, input }) => {
             await db
-                .insert(task)
+                .insert(taskList)
                 .values({
                     id: createId(),
-                    title: input.title,
-                    userId: ctx.user.userId,
-                    deadline: input.deadline,
-                    details: input.details
+                    userId: ctx.user.id,
+                    name: input.name
                 })
                 .catch((err) => {
                     throw new TRPCError({
@@ -41,26 +37,20 @@ export const tasksRouter = router({
 
             return null
         }),
-    edit: authedProcedure
+    rename: authedProcedure
         .input(
             z.object({
-                taskId: z.string().cuid2(),
-                title: z.string().optional(),
-                completed: z.boolean().optional(),
-                deadline: z.date().optional(),
-                details: z.string().optional()
+                listId: z.string().cuid2(),
+                newName: z.string().min(3)
             })
         )
-        .mutation(async ({ ctx, input }) => {
+        .mutation(async ({ input }) => {
             await db
-                .update(task)
+                .update(taskList)
                 .set({
-                    title: input.title,
-                    completed: input.completed,
-                    deadline: input.deadline,
-                    details: input.details
+                    name: input.newName
                 })
-                .where(eq(task.id, input.taskId))
+                .where(and(eq(taskList.id, input.listId)))
                 .catch((err) => {
                     throw new TRPCError({
                         code: 'INTERNAL_SERVER_ERROR',
@@ -73,13 +63,13 @@ export const tasksRouter = router({
     delete: authedProcedure
         .input(
             z.object({
-                taskId: z.string().cuid2()
+                listid: z.string().cuid2()
             })
         )
         .mutation(async ({ input }) => {
             await db
-                .delete(task)
-                .where(eq(task.id, input.taskId))
+                .delete(taskList)
+                .where(and(eq(taskList.id, input.listid)))
                 .catch((err) => {
                     throw new TRPCError({
                         code: 'INTERNAL_SERVER_ERROR',

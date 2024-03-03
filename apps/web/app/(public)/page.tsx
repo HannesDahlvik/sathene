@@ -6,7 +6,7 @@ import { getServerSession } from '@sathene/api'
 import { Button } from '@sathene/ui-web'
 
 export default async function Home() {
-    const session = await getServerSession()
+    const { session } = await getServerSession()
 
     return (
         <div className="relative">

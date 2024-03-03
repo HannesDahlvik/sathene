@@ -1,9 +1,9 @@
-import { DashboardCalendarMonthView } from './_components/MonthView'
+import { DashboardCalendarViewWrapper } from './_components/ViewWrapper'
 
 export default function DashboardCalendarPage() {
     return (
-        <>
-            <DashboardCalendarMonthView />
-        </>
+        <div className="flex flex-col h-screen w-full">
+            <DashboardCalendarViewWrapper />
+        </div>
     )
 }

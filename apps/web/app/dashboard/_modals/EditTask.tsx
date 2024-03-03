@@ -1,53 +1,63 @@
-'use client'
-
 import { useRouter } from 'next/navigation'
 
-import { Button, Input, useModals, useToast } from '@sathene/ui-web'
+import type { Task } from '@sathene/db'
+import { Button, Input, useModals } from '@sathene/ui-web'
 
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { useZodForm } from '~/hooks/useZodForm'
 import { api } from '~/lib/api'
 
-const createTaskSchema = z.object({
+const editTaskSchema = z.object({
     title: z.string().min(3),
     details: z.string().optional(),
     deadline: z.date().optional()
 })
-type CreateTaskSchema = z.infer<typeof createTaskSchema>
+type EditTaskSchema = z.infer<typeof editTaskSchema>
 
-export function DashboardCreateTaskModal() {
+interface Props {
+    task: Task
+}
+
+export function DashboardEditTaskModal({ task }: Props) {
     const { closeAllModals } = useModals()
-    const { toast } = useToast()
     const router = useRouter()
 
-    const createTaskMutation = api.tasks.create.useMutation()
+    const editTaskMutation = api.task.edit.useMutation()
 
     const {
         handleSubmit,
         register,
         formState: { errors }
     } = useZodForm({
-        schema: createTaskSchema
+        schema: editTaskSchema,
+        defaultValues: {
+            deadline: task.deadline ?? undefined,
+            title: task.title,
+            details: task.details ?? ''
+        }
     })
 
-    const handleCreateTask = (data: CreateTaskSchema) => {
-        createTaskMutation.mutate(data, {
-            onError: (err) => {
-                toast({
-                    title: 'Error',
-                    description: err.message,
-                    variant: 'destructive'
-                })
+    const handleEditTask = (data: EditTaskSchema) => {
+        editTaskMutation.mutate(
+            {
+                taskId: task.id,
+                ...data
             },
-            onSuccess: () => {
-                router.refresh()
-                closeAllModals()
+            {
+                onError: (err) => {
+                    toast.error(err.message)
+                },
+                onSuccess: () => {
+                    router.refresh()
+                    closeAllModals()
+                }
             }
-        })
+        )
     }
 
     return (
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleCreateTask)}>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleEditTask)}>
             <Input
                 label="Title"
                 type="text"
@@ -78,8 +88,8 @@ export function DashboardCreateTaskModal() {
                     Cancel
                 </Button>
 
-                <Button type="submit" loading={createTaskMutation.isLoading}>
-                    Create
+                <Button type="submit" loading={editTaskMutation.isLoading}>
+                    Save
                 </Button>
             </div>
         </form>

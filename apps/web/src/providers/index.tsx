@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react'
 
 import { ModalsProvider, ThemeProvider } from '@sathene/ui-web'
 
+import { DateProvider } from './Date'
 import TrpcProvider from './Trpc'
 
 export function Providers({ children }: PropsWithChildren) {
@@ -16,7 +17,9 @@ export function Providers({ children }: PropsWithChildren) {
         >
             <TrpcProvider>
                 <ModalsProvider>
-                    <>{children}</>
+                    <DateProvider>
+                        <>{children}</>
+                    </DateProvider>
                 </ModalsProvider>
             </TrpcProvider>
         </ThemeProvider>
