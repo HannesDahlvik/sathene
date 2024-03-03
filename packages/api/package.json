@@ -1,6 +1,6 @@
 {
     "name": "@sathene/api",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "type": "module",
     "main": "./src/index.ts",
     "types": "./src/index.ts",
@@ -12,7 +12,6 @@
         "@sathene/env": "workspace:^",
         "@trpc/client": "^10",
         "@trpc/server": "^10",
-        "argon2": "^0.40.1",
         "lucia": "^3",
         "next": "^14",
         "oslo": "^1",

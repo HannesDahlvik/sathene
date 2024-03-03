@@ -7,8 +7,8 @@ import { generateEmailVerificationCode, getServerSession } from '../auth/utils'
 import { satheneRouter } from '../root'
 import { authedProcedure, procedure, router, t } from '../trpc'
 import { TRPCError } from '@trpc/server'
-import * as argon2 from 'argon2'
 import { generateId } from 'lucia'
+import { Argon2id } from 'oslo/password'
 import { z } from 'zod'
 
 export const authRouter = router({
@@ -38,7 +38,7 @@ export const authRouter = router({
                 })
             }
 
-            const validPassword = await argon2.verify(existingUser.password, input.password)
+            const validPassword = await new Argon2id().verify(existingUser.password, input.password)
             if (!validPassword) {
                 throw new TRPCError({
                     code: 'UNAUTHORIZED',
@@ -61,7 +61,7 @@ export const authRouter = router({
             })
         )
         .mutation(async ({ input }) => {
-            const hashedPassword = await argon2.hash(input.password)
+            const hashedPassword = await new Argon2id().hash(input.password)
             const userId = generateId(25)
 
             try {
