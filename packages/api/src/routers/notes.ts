@@ -7,12 +7,40 @@ import { z } from 'zod'
 
 export const noteRouter = router({
     all: authedProcedure.mutation(async ({ ctx }) => {
-        const notes = await db.query.note.findMany({
-            where: (note, { eq }) => eq(note.userId, ctx.user.id)
-        })
+        const notes = await db.query.note
+            .findMany({
+                orderBy: (note, { desc }) => [desc(note.updatedAt)],
+                where: (note, { eq }) => eq(note.userId, ctx.user.id)
+            })
+            .catch((err) => {
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message: err.message
+                })
+            })
 
         return notes
     }),
+    getByNoteId: authedProcedure
+        .input(
+            z.object({
+                noteId: z.string().cuid2()
+            })
+        )
+        .mutation(async ({ input }) => {
+            const note = await db.query.note
+                .findFirst({
+                    where: (note, { eq }) => eq(note.id, input.noteId)
+                })
+                .catch((err) => {
+                    throw new TRPCError({
+                        code: 'INTERNAL_SERVER_ERROR',
+                        message: err.message
+                    })
+                })
+
+            return note
+        }),
     create: authedProcedure
         .input(
             z.object({

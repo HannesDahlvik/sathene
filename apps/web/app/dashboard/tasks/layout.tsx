@@ -1,9 +1,15 @@
 import type { PropsWithChildren } from 'react'
 
+import type { Metadata } from 'next'
+
 import { DashboardTasksWrapper } from './_components/Wrapper'
 import { caller } from '~/lib/caller'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+    title: 'Tasks'
+}
 
 export default async function DashboardTasksLayout({ children }: PropsWithChildren) {
     const taskLists = await caller.task.list.all()

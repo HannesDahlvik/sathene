@@ -29,6 +29,7 @@
     },
     "devDependencies": {
         "@sathene/tsconfig": "workspace:^",
+        "@tailwindcss/typography": "^0.5.10",
         "@types/node": "^20",
         "@types/react": "18.2.0",
         "tailwindcss": "^3",
