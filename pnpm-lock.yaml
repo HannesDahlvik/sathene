@@ -41,6 +41,9 @@ importers:
       '@sathene/db':
         specifier: workspace:^
         version: link:../../packages/db
+      '@sathene/env':
+        specifier: workspace:^
+        version: link:../../packages/env
       '@sathene/ui-web':
         specifier: workspace:^
         version: link:../../packages/ui/web
@@ -48,13 +51,13 @@ importers:
         specifier: ^4
         version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
       '@trpc/client':
-        specifier: ^10
+        specifier: 10.45.1
         version: 10.45.1(@trpc/server@10.45.1)
       '@trpc/react-query':
-        specifier: ^10
+        specifier: 10.45.1
         version: 10.45.1(@tanstack/react-query@4.36.1)(@trpc/client@10.45.1)(@trpc/server@10.45.1)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server':
-        specifier: ^10
+        specifier: 10.45.1
         version: 10.45.1
       '@uidotdev/usehooks':
         specifier: ^2.4.1
@@ -139,10 +142,10 @@ importers:
         specifier: workspace:^
         version: link:../env
       '@trpc/client':
-        specifier: ^10
+        specifier: 10.45.1
         version: 10.45.1(@trpc/server@10.45.1)
       '@trpc/server':
-        specifier: ^10
+        specifier: 10.45.1
         version: 10.45.1
       lucia:
         specifier: ^3

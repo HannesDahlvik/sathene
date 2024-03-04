@@ -1,5 +1,3 @@
-import { Button } from '@sathene/ui-web'
-
 import { DashboardNoteCard } from './_components/Card'
 import { caller } from '~/lib/caller'
 

@@ -2,6 +2,8 @@
 
 import { type PropsWithChildren, useState } from 'react'
 
+import { env } from '@sathene/env'
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { getFetch, httpBatchLink, loggerLink } from '@trpc/client'
 import superjson from 'superjson'

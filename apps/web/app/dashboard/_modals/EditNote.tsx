@@ -36,7 +36,7 @@ export function DashboardEditNoteModal({ note }: Props) {
         }
     })
 
-    const handleEditTask = (data: EditNoteSchema) => {
+    const handleEditNote = (data: EditNoteSchema) => {
         editNoteMutation.mutate(data, {
             onError: (err) => {
                 toast.error(err.message)
@@ -49,7 +49,7 @@ export function DashboardEditNoteModal({ note }: Props) {
     }
 
     return (
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleEditTask)}>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleEditNote)}>
             <Input
                 label="Title"
                 type="text"
