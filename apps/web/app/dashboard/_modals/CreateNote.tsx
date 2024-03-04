@@ -34,7 +34,7 @@ export function DashboardCreateNoteModal() {
             },
             onSuccess: (res) => {
                 router.refresh()
-                router.push(`/dashboard/notes/${res.id}`)
+                router.push(`/dashboard/notes/${res?.id}`)
                 closeAllModals()
             }
         })

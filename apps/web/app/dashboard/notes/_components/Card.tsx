@@ -53,16 +53,21 @@ export function DashboardNoteCard({ note }: Props) {
                     action: 'Delete'
                 },
                 onSuccess: () => {
-                    deleteNoteMutation.mutate(note.id, {
-                        onError: (err) => {
-                            toast.error(err.message)
+                    deleteNoteMutation.mutate(
+                        {
+                            noteId: note.id
                         },
+                        {
+                            onError: (err) => {
+                                toast.error(err.message)
+                            },
 
-                        onSuccess: () => {
-                            router.refresh()
-                            toast.success(`Successfully deleted "${note.title}"`)
+                            onSuccess: () => {
+                                router.refresh()
+                                toast.success(`Successfully deleted "${note.title}"`)
+                            }
                         }
-                    })
+                    )
                 }
             })
         }

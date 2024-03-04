@@ -51,6 +51,31 @@ export const noteRouter = router({
 
             return newNote
         }),
+    edit: authedProcedure
+        .input(
+            z.object({
+                noteId: z.string().cuid2(),
+                title: z.string().optional(),
+                content: z.string().optional()
+            })
+        )
+        .mutation(async ({ input }) => {
+            await db
+                .update(note)
+                .set({
+                    title: input.title,
+                    content: input.content
+                })
+                .where(eq(note.id, input.noteId))
+                .catch((err) => {
+                    throw new TRPCError({
+                        code: 'INTERNAL_SERVER_ERROR',
+                        message: err.message
+                    })
+                })
+
+            return null
+        }),
     delete: authedProcedure
         .input(
             z.object({

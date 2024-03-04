@@ -9,8 +9,7 @@ import { useZodForm } from '~/hooks/useZodForm'
 import { api } from '~/lib/api'
 
 const editNoteSchema = z.object({
-    title: z.string().min(3),
-    content: z.string().nullish()
+    title: z.string().min(3).optional()
 })
 type EditNoteSchema = z.infer<typeof editNoteSchema>
 
@@ -31,21 +30,26 @@ export function DashboardEditNoteModal({ note }: Props) {
     } = useZodForm({
         schema: editNoteSchema,
         defaultValues: {
-            title: note.title,
-            content: note.content
+            title: note.title
         }
     })
 
     const handleEditNote = (data: EditNoteSchema) => {
-        editNoteMutation.mutate(data, {
-            onError: (err) => {
-                toast.error(err.message)
+        editNoteMutation.mutate(
+            {
+                noteId: note.id,
+                ...data
             },
-            onSuccess: () => {
-                router.refresh()
-                closeAllModals()
+            {
+                onError: (err) => {
+                    toast.error(err.message)
+                },
+                onSuccess: () => {
+                    router.refresh()
+                    closeAllModals()
+                }
             }
-        })
+        )
     }
 
     return (
