@@ -33,8 +33,8 @@ export function DashboardCreateNoteModal() {
                 toast.error(err.message)
             },
             onSuccess: (res) => {
-                router.refresh()
                 router.push(`/dashboard/notes/${res?.id}`)
+                router.refresh()
                 closeAllModals()
             }
         })

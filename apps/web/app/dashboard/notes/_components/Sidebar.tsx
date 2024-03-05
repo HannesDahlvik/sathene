@@ -1,32 +1,13 @@
-'use client'
-
-import type { Note } from '@sathene/db'
-import { Button, useModals } from '@sathene/ui-web'
-
-import { DashboardCreateNoteModal } from '../../_modals/CreateNote'
+import { DashboardNotesCreateNoteButton } from './CreateNoteButton'
 import { DashboardNotesSidebarLink } from './SidebarLink'
+import { caller } from '~/lib/caller'
 
-interface Props {
-    notes: Note[]
-}
-
-export function DashboardNotesSidebar({ notes }: Props) {
-    const { openModal } = useModals()
-
-    const handleCreateNote = () => {
-        openModal({
-            title: 'Create note',
-            children: <DashboardCreateNoteModal />
-        })
-    }
+export async function DashboardNotesSidebar() {
+    const notes = await caller.note.all()
 
     return (
         <div className="flex flex-col bg-accent border-r overflow-auto">
-            <div className="w-full p-4">
-                <Button className="w-full" onClick={handleCreateNote}>
-                    Create note
-                </Button>
-            </div>
+            <DashboardNotesCreateNoteButton />
 
             <div className="flex flex-col gap-2 overflow-scroll">
                 {notes.map((note) => (

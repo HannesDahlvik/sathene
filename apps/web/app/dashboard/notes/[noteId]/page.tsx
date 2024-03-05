@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation'
 
+import { Separator } from '@sathene/ui-web'
+
 import { DashboardNotesTitle } from '../_components/Title'
 import { DashboardNotesEditorWrapper } from '../_components/Wrapper'
 import { caller } from '~/lib/caller'
@@ -20,8 +22,10 @@ export default async function DashboardNotesNotePage({ params }: Props) {
     }
 
     return (
-        <div className="grid grid-rows-[auto_1fr] gap-4 min-h-screen p-8">
+        <div className="grid grid-rows-[auto_1px_1fr_auto] min-h-screen w-full p-8">
             <DashboardNotesTitle note={note} />
+
+            <Separator />
 
             <DashboardNotesEditorWrapper note={note} />
         </div>

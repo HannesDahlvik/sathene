@@ -64,8 +64,8 @@ export function DashboardNotesTitle({ note }: Props) {
     }
 
     return (
-        <Input
-            className="h-16 px-4 py-4 text-2xl font-bold"
+        <input
+            className="bg-transparent outline-none text-2xl font-bold mb-4"
             type="text"
             defaultValue={note.title}
             value={title}

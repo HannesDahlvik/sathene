@@ -2,7 +2,7 @@
 
 import { Button, Separator } from '@sathene/ui-web'
 
-import { useCurrentEditor } from '@tiptap/react'
+import { Editor, useCurrentEditor } from '@tiptap/react'
 import {
     Bold,
     Code,
@@ -18,12 +18,11 @@ import { toast } from 'sonner'
 import { api } from '~/lib/api'
 
 interface Props {
+    editor: Editor
     noteId: string
 }
 
-export function DashboardNotesEditorToolbar({ noteId }: Props) {
-    const { editor } = useCurrentEditor()
-
+export function DashboardNotesEditorToolbar({ editor, noteId }: Props) {
     const editNoteMutation = api.note.edit.useMutation()
 
     const handleSaveNote = () => {
