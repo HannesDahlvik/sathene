@@ -1,3 +1,7 @@
+import { redirect } from 'next/navigation'
+
+import { DashboardNotesTitle } from '../_components/Title'
+import { DashboardNotesEditorWrapper } from '../_components/Wrapper'
 import { caller } from '~/lib/caller'
 
 interface Props {
@@ -11,11 +15,15 @@ export default async function DashboardNotesNotePage({ params }: Props) {
         noteId: params.noteId
     })
 
-    return (
-        <div>
-            <h3>{note?.title}</h3>
+    if (!note) {
+        return redirect('/dashboard/notes')
+    }
 
-            <p>{note?.content}</p>
+    return (
+        <div className="grid grid-rows-[auto_1fr] gap-4 min-h-screen p-8">
+            <DashboardNotesTitle note={note} />
+
+            <DashboardNotesEditorWrapper note={note} />
         </div>
     )
 }

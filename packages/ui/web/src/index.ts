@@ -45,6 +45,7 @@ export {
     SelectTrigger,
     SelectValue
 } from './components/select'
+export { Separator } from './components/separator'
 export { Skeleton } from './components/skeleton'
 export { ThemeProvider, useTheme } from './components/theme-provider'
 export { Toaster } from './components/toaster'

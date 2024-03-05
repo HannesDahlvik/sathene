@@ -18,7 +18,7 @@ export default async function DashboardNotesLayout({ children }: PropsWithChildr
         <div className="relative grid grid-cols-[275px_1fr] h-screen">
             <DashboardNotesSidebar notes={notes} />
 
-            <div className="p-4 overflow-auto">{children}</div>
+            {children}
         </div>
     )
 }
