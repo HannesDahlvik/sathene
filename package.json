@@ -11,6 +11,9 @@
     "scripts": {
         "web": "pnpm --filter @sathene/web --",
         "build": "turbo build",
+        "api": "pnpm --filter @sathene/api --",
+        "db": "pnpm --filter @sathene/db --",
+        "emails": "pnpm --filter @sathene/emails --",
         "lint": "turbo lint",
         "format": "prettier --write \"**/*.{ts,tsx,md}\"",
         "bump": "node ./scripts/bump.js"

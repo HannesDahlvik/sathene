@@ -43,6 +43,13 @@
       "when": 1709480277624,
       "tag": "0005_foamy_unus",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1709750506105,
+      "tag": "0006_silky_jackal",
+      "breakpoints": true
     }
   ]
 }

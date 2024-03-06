@@ -25,7 +25,7 @@ export const session = mysqlTable('session', {
 })
 export type Session = typeof session.$inferSelect
 
-export const emailVerification = mysqlTable('email_verification', {
+export const emailVerificationCode = mysqlTable('email_verification_code', {
     id: int('id').primaryKey().autoincrement(),
     code: varchar('code', {
         length: 6
@@ -38,7 +38,7 @@ export const emailVerification = mysqlTable('email_verification', {
     email: text('email').notNull(),
     expiresAt: datetime('expires_at').notNull()
 })
-export type EmailVerification = typeof session.$inferSelect
+export type EmailVerificationCode = typeof emailVerificationCode.$inferSelect
 
 export const taskList = mysqlTable('task_list', {
     id: varchar('id', {
