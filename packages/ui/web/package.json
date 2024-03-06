@@ -1,6 +1,6 @@
 {
     "name": "@sathene/ui-web",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "main": "./src/index.ts",
     "types": "./src/index.ts",
     "exports": {
@@ -9,17 +9,19 @@
         "./postcss": "./src/postcss.config.js"
     },
     "dependencies": {
+        "@radix-ui/react-alert-dialog": "^1.0.5",
         "@radix-ui/react-checkbox": "^1.0.4",
         "@radix-ui/react-dialog": "^1.0.5",
         "@radix-ui/react-dropdown-menu": "^2.0.6",
         "@radix-ui/react-label": "^2.0.2",
         "@radix-ui/react-popover": "^1.0.7",
         "@radix-ui/react-select": "^2.0.0",
+        "@radix-ui/react-separator": "^1.0.3",
         "@radix-ui/react-slot": "^1.0.2",
         "@radix-ui/react-toast": "^1.1.5",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.0.0",
-        "lucide-react": "^0.294.0",
+        "lucide-react": "^0.344.0",
         "next-themes": "^0.2.1",
         "react": "^18",
         "sonner": "^1.3.1",
@@ -28,6 +30,7 @@
     },
     "devDependencies": {
         "@sathene/tsconfig": "workspace:^",
+        "@tailwindcss/typography": "^0.5.10",
         "@types/node": "^20",
         "@types/react": "18.2.0",
         "tailwindcss": "^3",

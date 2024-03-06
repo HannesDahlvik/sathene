@@ -73,3 +73,23 @@ export const task = mysqlTable('task', {
     }).references(() => taskList.id)
 })
 export type Task = typeof task.$inferSelect
+
+export const note = mysqlTable('note', {
+    id: varchar('id', {
+        length: 24
+    }).primaryKey(),
+    userId: varchar('user_id', {
+        length: 255
+    })
+        .notNull()
+        .references(() => user.id),
+    title: text('title').notNull(),
+    content: text('content'),
+    createdAt: datetime('created_at')
+        .notNull()
+        .default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: datetime('updated_at')
+        .notNull()
+        .default(sql`CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP`)
+})
+export type Note = typeof note.$inferSelect
