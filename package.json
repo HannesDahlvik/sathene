@@ -1,8 +1,13 @@
 {
     "name": "sathene",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "private": true,
-    "packageManager": "pnpm@8.9.0",
+    "workspaces": [
+        "apps/*",
+        "packages/*",
+        "packages/config/*",
+        "packages/ui/*"
+    ],
     "scripts": {
         "web": "pnpm --filter @sathene/web --",
         "build": "turbo build",
