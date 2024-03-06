@@ -1,8 +1,10 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import { Button, Separator } from '@sathene/ui-web'
 
-import { Editor, useCurrentEditor } from '@tiptap/react'
+import { Editor } from '@tiptap/react'
 import {
     Bold,
     Code,
@@ -23,6 +25,8 @@ interface Props {
 }
 
 export function DashboardNotesEditorToolbar({ editor, noteId }: Props) {
+    const router = useRouter()
+
     const editNoteMutation = api.note.edit.useMutation()
 
     const handleSaveNote = () => {
@@ -40,6 +44,7 @@ export function DashboardNotesEditorToolbar({ editor, noteId }: Props) {
                     })
                 },
                 onSuccess: () => {
+                    router.refresh()
                     toast.info('Saved note!', {
                         position: 'bottom-right'
                     })
@@ -51,7 +56,7 @@ export function DashboardNotesEditorToolbar({ editor, noteId }: Props) {
     if (!editor) return null
 
     return (
-        <div className="flex items-center gap-1 bg-primary/75 text-primary-foreground p-2 rounded-md h-14 w-full backdrop-blur-sm">
+        <div className="flex items-center gap-1 bg-primary/75 text-primary-foreground p-2 rounded-md w-full backdrop-blur-sm">
             <Button
                 size="sm"
                 variant={editor.isActive('bold') ? 'secondary' : 'ghost'}

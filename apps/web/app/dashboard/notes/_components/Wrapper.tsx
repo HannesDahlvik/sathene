@@ -25,9 +25,12 @@ export function DashboardNotesEditorWrapper({ note }: Props) {
 
     return (
         <>
-            <EditorContent className="overflow-scroll outline-none mt-2 mb-4" editor={editor} />
+            <EditorContent
+                className="prose dark:prose-invert md:prose-lg w-full max-w-full overflow-scroll outline-none"
+                editor={editor}
+            />
 
-            <div className="sticky left-0 bottom-0 w-full z-50">
+            <div className="mt-8 w-full z-50">
                 <DashboardNotesEditorToolbar editor={editor} noteId={note.id} />
             </div>
         </>
