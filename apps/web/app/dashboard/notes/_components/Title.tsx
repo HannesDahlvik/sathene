@@ -67,7 +67,6 @@ export function DashboardNotesTitle({ note }: Props) {
         <input
             className="bg-transparent outline-none text-2xl font-bold mb-4"
             type="text"
-            defaultValue={note.title}
             value={title}
             onChange={(ev) => setTitle(ev.target.value)}
         />
