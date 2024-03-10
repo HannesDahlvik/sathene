@@ -5,9 +5,9 @@ import { defineConfig } from 'drizzle-kit'
 export default defineConfig({
     schema: './src/schema.ts',
     out: './drizzle',
-    driver: 'mysql2',
+    driver: 'pg',
     verbose: true,
     dbCredentials: {
-        uri: env.DATABASE_URL
+        connectionString: env.DATABASE_URL
     }
 })

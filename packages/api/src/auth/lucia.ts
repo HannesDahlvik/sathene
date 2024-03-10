@@ -1,10 +1,10 @@
 import { db, session, user } from '@sathene/db'
 import { env } from '@sathene/env'
 
-import { DrizzleMySQLAdapter } from '@lucia-auth/adapter-drizzle'
+import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle'
 import { Lucia } from 'lucia'
 
-const adapter = new DrizzleMySQLAdapter(db, session, user)
+const adapter = new DrizzlePostgreSQLAdapter(db, session, user)
 
 export const auth = new Lucia(adapter, {
     sessionCookie: {
@@ -16,9 +16,7 @@ export const auth = new Lucia(adapter, {
     getUserAttributes: (data) => {
         return {
             id: data.id,
-            username: data.username,
-            email: data.email,
-            email_verified: data.email_verified
+            username: data.username
         }
     }
 })
@@ -31,8 +29,6 @@ declare module 'lucia' {
         DatabaseUserAttributes: {
             id: string
             username: string
-            email: string
-            email_verified: boolean
         }
     }
 }
