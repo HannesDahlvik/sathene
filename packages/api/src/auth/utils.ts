@@ -2,13 +2,11 @@ import { cache } from 'react'
 
 import { cookies } from 'next/headers'
 
-import { db, emailVerification, eq } from '@sathene/db'
+import { env } from '@sathene/env'
 
 import { auth } from './lucia'
-import { TRPCError } from '@trpc/server'
+import { GitHub } from 'arctic'
 import type { Session, User } from 'lucia'
-import { TimeSpan, createDate } from 'oslo'
-import { alphabet, generateRandomString } from 'oslo/crypto'
 
 export const getServerSession = cache(
     async (): Promise<{ user: User; session: Session } | { user: null; session: null }> => {
@@ -36,36 +34,4 @@ export const getServerSession = cache(
     }
 )
 
-export async function generateEmailVerificationCode(
-    userId: string,
-    email: string
-): Promise<string> {
-    await db
-        .delete(emailVerification)
-        .where(eq(emailVerification.userId, userId))
-        .catch((err) => {
-            throw new TRPCError({
-                code: 'INTERNAL_SERVER_ERROR',
-                message: err.message
-            })
-        })
-
-    const code = generateRandomString(6, alphabet('0-9', 'A-Z'))
-
-    await db
-        .insert(emailVerification)
-        .values({
-            code,
-            email,
-            expiresAt: createDate(new TimeSpan(30, 'm')),
-            userId
-        })
-        .catch((err) => {
-            throw new TRPCError({
-                code: 'INTERNAL_SERVER_ERROR',
-                message: err.message
-            })
-        })
-
-    return code
-}
+export const github = new GitHub(env.GITHUB_CLIENT_ID, env.GITHUB_CLIENT_SECRET)

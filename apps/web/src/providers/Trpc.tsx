@@ -16,7 +16,16 @@ function getBaseUrl() {
 }
 
 export default function TrpcProvider({ children }: PropsWithChildren) {
-    const [queryClient] = useState(() => new QueryClient())
+    const [queryClient] = useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        refetchOnWindowFocus: false
+                    }
+                }
+            })
+    )
     const [trpcClient] = useState(() =>
         api.createClient({
             transformer: superjson,
