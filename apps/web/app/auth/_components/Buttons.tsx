@@ -13,26 +13,27 @@ export function AuthButtons() {
 
     const utils = api.useUtils()
 
-    api.auth.github.login.useQuery(undefined, {
-        enabled: false
-    })
-
-    const handleGithubLogin = () => {
-        utils.auth.github.login
+    const handleLogin = (provider: 'github' | 'google') => {
+        utils.auth[provider].login
             .fetch()
-            .then((res) => {
-                router.push(res.toString())
+            .then(({ url }) => {
+                router.push(url.toString())
             })
             .catch(() => {
-                toast.error('Failed to login with GitHub')
+                toast.error(`Failed to login with ${provider}`)
             })
     }
 
     return (
-        <div className="flex flex-col w-full">
-            <Button onClick={handleGithubLogin}>
+        <div className="flex flex-col gap-2 w-full">
+            <Button onClick={() => handleLogin('github')}>
                 <Github size={20} className="mr-2" />
                 Github
+            </Button>
+
+            <Button onClick={() => handleLogin('google')}>
+                <img src="/google-logo.svg" className="mr-2 h-5 w-5" />
+                Google
             </Button>
         </div>
     )
