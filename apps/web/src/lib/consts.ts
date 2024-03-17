@@ -1,4 +1,12 @@
-import { Calendar, CheckCircle, Layout, Notebook, type LucideIcon } from 'lucide-react'
+import {
+    Calendar,
+    CheckCircle,
+    Layout,
+    Notebook,
+    type LucideIcon,
+    User2,
+    Palette
+} from 'lucide-react'
 
 export interface DashboardLink {
     title: string
@@ -26,5 +34,18 @@ export const DASHBOARD_LINKS: DashboardLink[] = [
         title: 'Notes',
         href: '/dashboard/notes',
         icon: Notebook
+    }
+]
+
+export const DASHBOARD_SETTINGS_LINKS: DashboardLink[] = [
+    {
+        title: 'Profile',
+        icon: User2,
+        href: '/dashboard/settings/profile'
+    },
+    {
+        title: 'Appearance',
+        icon: Palette,
+        href: '/dashboard/settings/appearance'
     }
 ]

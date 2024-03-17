@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic'
 export default async function DashboardLayout({ children }: PropsWithChildren) {
     const { session } = await getServerSession()
 
-    if (!session) return redirect('/login')
+    if (!session) return redirect('/auth')
 
     return (
         <div className="grid h-screen w-full grid-cols-[275px_1fr_400px]">
