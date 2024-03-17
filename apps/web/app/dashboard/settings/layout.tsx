@@ -7,7 +7,9 @@ export default function DashboardSettingsLayout({ children }: PropsWithChildren)
         <div className="grid grid-cols-[225px_1fr] h-full">
             <DashboardSettingsSidebar />
 
-            <div className="p-8">{children}</div>
+            <div className="flex justify-center p-8">
+                <div className="w-[400px]">{children}</div>
+            </div>
         </div>
     )
 }

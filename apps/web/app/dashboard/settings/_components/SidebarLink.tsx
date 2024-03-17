@@ -20,9 +20,7 @@ export function DashboardSidebarLink({ link }: Props) {
         <Link
             className={cn(
                 'flex items-center gap-2 h-10 w-full rounded-xl px-3 text-sm font-bold',
-                pathname.includes(link.href as string)
-                    ? 'bg-primary text-background'
-                    : 'hover:bg-primary/25'
+                pathname.includes(link.href as string) ? 'bg-primary/20' : 'hover:bg-primary/20'
             )}
             href={link.href ?? ''}
             key={link.title}
