@@ -2,17 +2,16 @@
 
 import Link from 'next/link'
 
-import { Button, useTheme } from '@sathene/ui-web'
+import { Button } from '@sathene/ui-web'
 
 import packageJson from '../../../package.json'
 import { DashboardSidebarLink } from './SidebarLink'
-import { LogOut, Moon, Sun } from 'lucide-react'
+import { LogOut, Moon, Settings, Sun } from 'lucide-react'
 import { useAuth } from '~/hooks/useAuth'
 import { DASHBOARD_LINKS } from '~/lib/consts'
 
 export function DashboardSidebar() {
     const { logout } = useAuth()
-    const { setTheme, theme } = useTheme()
 
     return (
         <div className="flex flex-col items-center bg-accent p-4 border-r">
@@ -26,14 +25,6 @@ export function DashboardSidebar() {
                         v{packageJson.version}
                     </p>
                 </div>
-
-                <Button
-                    size="icon"
-                    className="h-7 w-7"
-                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                >
-                    {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-                </Button>
             </div>
 
             <div className="flex flex-col justify-start gap-2 w-full mt-12">
@@ -43,6 +34,10 @@ export function DashboardSidebar() {
             </div>
 
             <div className="flex flex-col justify-center gap-2 w-full mt-auto">
+                <DashboardSidebarLink
+                    link={{ title: 'Settings', icon: Settings, href: '/dashboard/settings' }}
+                />
+
                 <DashboardSidebarLink link={{ title: 'Logout', icon: LogOut }} onClick={logout} />
             </div>
         </div>

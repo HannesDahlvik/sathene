@@ -1,71 +1,61 @@
-import { sql } from 'drizzle-orm'
-import { mysqlTable, varchar, text, boolean, datetime, int } from 'drizzle-orm/mysql-core'
+import { pgTable, varchar, text, boolean, timestamp, primaryKey } from 'drizzle-orm/pg-core'
 
-export const user = mysqlTable('user', {
-    id: varchar('id', {
-        length: 255
-    }).primaryKey(),
-    email: text('email'),
-    emailVerified: boolean('email_verified').default(false).notNull(),
-    username: text('username').notNull(),
-    password: text('password').notNull()
+export const user = pgTable('user', {
+    id: text('id').primaryKey(),
+    username: text('username').notNull()
 })
 export type User = typeof user.$inferSelect
 
-export const session = mysqlTable('session', {
-    id: varchar('id', {
-        length: 255
-    }).primaryKey(),
-    userId: varchar('user_id', {
-        length: 255
-    })
+export const account = pgTable(
+    'account',
+    {
+        providerId: text('provider_id'),
+        providerUserId: text('provider_user_id'),
+        userId: text('user_id')
+            .notNull()
+            .references(() => user.id)
+    },
+    (table) => {
+        return {
+            pk: primaryKey({
+                columns: [table.providerId, table.providerUserId]
+            })
+        }
+    }
+)
+
+export const session = pgTable('session', {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
         .notNull()
         .references(() => user.id),
-    expiresAt: datetime('expires_at').notNull()
+    expiresAt: timestamp('expires_at', {
+        mode: 'date',
+        withTimezone: true
+    }).notNull()
 })
 export type Session = typeof session.$inferSelect
 
-export const emailVerification = mysqlTable('email_verification', {
-    id: int('id').primaryKey().autoincrement(),
-    code: varchar('code', {
-        length: 6
-    }).notNull(),
-    userId: varchar('user_id', {
-        length: 255
-    })
+export const taskList = pgTable('task_list', {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
         .notNull()
         .references(() => user.id),
-    email: text('email').notNull(),
-    expiresAt: datetime('expires_at').notNull()
-})
-export type EmailVerification = typeof session.$inferSelect
-
-export const taskList = mysqlTable('task_list', {
-    id: varchar('id', {
-        length: 24
-    }).primaryKey(),
-    userId: varchar('user_id', {
-        length: 255
+    name: text('name').notNull(),
+    createdAt: timestamp('created_at', {
+        mode: 'date'
     })
         .notNull()
-        .references(() => user.id),
-    name: varchar('name', {
-        length: 32
-    }).notNull(),
-    createdAt: datetime('created_at')
-        .notNull()
-        .default(sql`CURRENT_TIMESTAMP`)
+        .defaultNow()
 })
 export type TaskList = typeof taskList.$inferSelect
 
-export const task = mysqlTable('task', {
-    id: varchar('id', {
-        length: 24
-    }).primaryKey(),
+export const task = pgTable('task', {
+    id: text('id').primaryKey(),
     title: text('title').notNull(),
     details: text('details'),
     completed: boolean('completed').default(false).notNull(),
-    deadline: datetime('deadline', {
+    deadline: timestamp('deadline', {
         mode: 'date'
     }),
     listId: varchar('list_id', {
@@ -74,22 +64,22 @@ export const task = mysqlTable('task', {
 })
 export type Task = typeof task.$inferSelect
 
-export const note = mysqlTable('note', {
-    id: varchar('id', {
-        length: 24
-    }).primaryKey(),
-    userId: varchar('user_id', {
-        length: 255
-    })
+export const note = pgTable('note', {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
         .notNull()
         .references(() => user.id),
     title: text('title').notNull(),
     content: text('content'),
-    createdAt: datetime('created_at')
+    createdAt: timestamp('created_at', {
+        mode: 'date'
+    })
         .notNull()
-        .default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: datetime('updated_at')
+        .defaultNow(),
+    updatedAt: timestamp('updated_at', {
+        mode: 'date'
+    })
         .notNull()
-        .default(sql`CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP`)
+        .defaultNow()
 })
 export type Note = typeof note.$inferSelect

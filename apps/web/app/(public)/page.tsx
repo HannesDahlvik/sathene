@@ -28,11 +28,7 @@ export default async function Home() {
                         ) : (
                             <Fragment>
                                 <Button size="xl" variant="secondary" asChild>
-                                    <Link href="/login">Login</Link>
-                                </Button>
-
-                                <Button size="xl" variant="secondary" asChild>
-                                    <Link href="/signup">Signup</Link>
+                                    <Link href="/auth">Login</Link>
                                 </Button>
                             </Fragment>
                         )}

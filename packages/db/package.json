@@ -1,17 +1,17 @@
 {
     "name": "@sathene/db",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "main": "./src/index.ts",
     "scripts": {
-        "db:generate": "pnpm with-env drizzle-kit generate:mysql",
-        "db:push": "pnpm with-env drizzle-kit push:mysql",
+        "db:generate": "pnpm with-env drizzle-kit generate:pg",
+        "db:push": "pnpm with-env drizzle-kit push:pg",
         "db:studio": "pnpm with-env drizzle-kit studio",
         "with-env": "dotenv -e ../../.env --"
     },
     "dependencies": {
-        "@planetscale/database": "^1.11.0",
+        "@neondatabase/serverless": "^0.9.0",
         "@sathene/env": "workspace:^",
-        "drizzle-orm": "^0.29.4",
+        "drizzle-orm": "^0.30.1",
         "mysql2": "^3"
     },
     "devDependencies": {

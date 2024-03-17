@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     const { user } = await getServerSession()
 
     return (
-        <html lang="en" className={lato.variable}>
+        <html lang="en" className={lato.variable} suppressHydrationWarning>
             <body>
                 <AuthProvider user={user}>
                     <Providers>

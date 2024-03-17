@@ -1,47 +1,12 @@
 {
   "version": "5",
-  "dialect": "mysql",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1701872032519,
-      "tag": "0000_luxuriant_rafael_vega",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1702111567548,
-      "tag": "0001_nappy_madame_web",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1704546163000,
-      "tag": "0002_cuddly_nomad",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1704546562774,
-      "tag": "0003_dark_daimon_hellstrom",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1704546658622,
-      "tag": "0004_empty_robbie_robertson",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1709480277624,
-      "tag": "0005_foamy_unus",
+      "when": 1710067398357,
+      "tag": "0000_clear_sway",
       "breakpoints": true
     }
   ]

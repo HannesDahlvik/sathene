@@ -1,14 +1,11 @@
 import { env } from '@sathene/env'
 
 import * as schema from './schema'
-import { drizzle } from 'drizzle-orm/mysql2'
-import mysql from 'mysql2/promise'
+import { neon } from '@neondatabase/serverless'
+import { drizzle } from 'drizzle-orm/neon-http'
 
-export const mysqlConnection = await mysql.createConnection({
-    uri: env.DATABASE_URL
-})
-export const db = drizzle(mysqlConnection, {
-    mode: env.NODE_ENV === 'production' ? 'planetscale' : 'default',
+export const sql = neon(env.DATABASE_URL)
+export const db = drizzle(sql as any, {
     schema
 })
 export * from './schema'
