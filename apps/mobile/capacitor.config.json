@@ -1,0 +1,10 @@
+{
+    "appId": "com.sathene.app",
+    "appName": "sathene",
+    "webDir": "dist",
+    "plugins": {
+        "SplashScreen": {
+            "launchAutoHide": false
+        }
+    }
+}
