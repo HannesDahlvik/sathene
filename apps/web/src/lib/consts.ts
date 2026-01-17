@@ -3,7 +3,7 @@ import { Calendar, ListTodo, Notebook, Palette, PanelsTopLeft, UserRound } from 
 export interface DashboardLink {
     title: string
     icon: any
-    href?: `/dashboard/${string}`
+    href: `/dashboard/${string}`
 }
 
 export const DASHBOARD_LINKS: DashboardLink[] = [

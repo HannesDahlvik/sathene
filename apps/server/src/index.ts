@@ -7,18 +7,29 @@ import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 
 import { createContext } from './context.js'
+import { auth } from './lib/auth.js'
 import { satheneRouter } from './root.js'
 
 const app = new Hono()
 
 app.use(logger())
-app.use('*', cors())
-app.get('/', (c) => c.text('Server is running!'))
+app.use(
+    '*',
+    cors({
+        origin: ['http://localhost:5173'],
+        allowHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
+    })
+)
+
+app.on(['GET', 'POST'], '/api/auth/**', (c) => auth.handler(c.req.raw))
 app.use(
     '/trpc/*',
     trpcServer({
         router: satheneRouter,
-        createContext: createContext
+        createContext: (_opts, hono) => {
+            return createContext({ hono })
+        }
     })
 )
 
@@ -33,3 +44,4 @@ serve(
 )
 
 export { type SatheneRouter } from './root.js'
+export { auth } from './lib/auth.js'

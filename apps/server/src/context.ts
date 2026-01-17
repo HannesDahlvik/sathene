@@ -1,15 +1,20 @@
-import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
+import type { Context as HonoContext } from 'hono'
 
-type SatheneContext = {
-    token: string | null
+import { auth } from './lib/auth.js'
+
+type Context = {
+    hono: HonoContext
 }
 
-function createContext({ req }: FetchCreateContextFnOptions): SatheneContext {
-    const token = req.headers.get('Authorization')
+async function createContext({ hono }: Context) {
+    const session = await auth.api.getSession({
+        headers: hono.req.raw.headers
+    })
 
     return {
-        token
+        auth: session
     }
 }
 
-export { createContext, type SatheneContext }
+export { createContext }
+export type SatheneContext = Awaited<ReturnType<typeof createContext>>

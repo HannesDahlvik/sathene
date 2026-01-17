@@ -1,10 +1,17 @@
 <script lang="ts">
+    import { Button } from '@sathene/ui'
+
+    import { authClient } from '$lib/api'
     import { DASHBOARD_LINKS } from '$lib/consts'
 
     import SidebarLink from './SidebarLink.svelte'
+
+    function handleLogout() {
+        authClient.signOut()
+    }
 </script>
 
-<div class="bg-accent border-r-border flex w-64 flex-col border-r p-4">
+<div class="bg-accent border-r-border flex w-full flex-col border-r p-4">
     <div class="mb-2">
         <a href="/" class="mr-2 text-2xl font-bold">Sathene</a>
     </div>
@@ -15,5 +22,7 @@
         {/each}
     </div>
 
-    <div class="mt-auto"></div>
+    <div class="mt-auto">
+        <Button variant="outline" class="w-full" onclick={handleLogout}>Logout</Button>
+    </div>
 </div>

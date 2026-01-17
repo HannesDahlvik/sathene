@@ -4,7 +4,11 @@
     import { page } from '$app/state'
     import type { DashboardLink } from '$lib/consts'
 
-    let { link } = $props<{ link: DashboardLink }>()
+    interface Props {
+        link: DashboardLink
+    }
+
+    let { link }: Props = $props()
 </script>
 
 <a

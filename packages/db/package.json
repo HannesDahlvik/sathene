@@ -4,6 +4,7 @@
     "type": "module",
     "main": "src/index.ts",
     "scripts": {
+        "dev": "pnpm with-env drizzle-kit studio",
         "db:generate": "pnpm with-env drizzle-kit generate",
         "db:push": "pnpm with-env drizzle-kit push",
         "db:studio": "pnpm with-env drizzle-kit studio",

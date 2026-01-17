@@ -4,9 +4,12 @@
     "private": true,
     "packageManager": "pnpm@10.0.0",
     "scripts": {
-        "build": "turbo run build",
         "dev": "turbo run dev",
-        "format": "prettier --write ."
+        "web": "pnpm --filter @sathene/web --",
+        "mobile": "pnpm --filter @sathene/mobile --",
+        "server": "pnpm --filter @sathene/server --",
+        "db": "pnpm --filter @sathene/db --",
+        "build": "turbo run build"
     },
     "devDependencies": {
         "@total-typescript/tsconfig": "^1.0.4",
@@ -17,10 +20,5 @@
         "prettier-plugin-tailwindcss": "^0.7.2",
         "turbo": "^2.7.4",
         "typescript": "^5"
-    },
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "esbuild"
-        ]
     }
 }
