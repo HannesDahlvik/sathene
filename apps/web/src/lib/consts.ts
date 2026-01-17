@@ -1,8 +1,14 @@
-import { Calendar, ListTodo, Notebook, Palette, PanelsTopLeft, UserRound } from '@lucide/svelte'
+import {
+    Calendar,
+    ClipboardList,
+    type Icon as IconType,
+    Notebook,
+    PanelsTopLeft
+} from '@lucide/svelte'
 
 export interface DashboardLink {
     title: string
-    icon: any
+    icon: typeof IconType
     href: `/dashboard/${string}`
 }
 
@@ -20,7 +26,7 @@ export const DASHBOARD_LINKS: DashboardLink[] = [
     {
         title: 'Tasks',
         href: '/dashboard/tasks',
-        icon: ListTodo
+        icon: ClipboardList
     },
     {
         title: 'Notes',
