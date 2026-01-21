@@ -2,7 +2,6 @@ import { TRPCError, initTRPC } from '@trpc/server'
 import SuperJSON from 'superjson'
 
 import { type SatheneContext } from './context.js'
-import { auth } from './lib/auth.js'
 
 const t = initTRPC.context<SatheneContext>().create({
     transformer: SuperJSON

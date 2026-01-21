@@ -9,6 +9,22 @@
 .dashboard-grid {
     @apply grid h-screen;
     grid-template-columns: 256px 1fr;
+    grid-template-rows: 80px 1fr;
+    grid-template-areas:
+        'sidebar toolbar'
+        'sidebar content';
+}
+
+.dashboard-sidebar {
+    grid-area: sidebar;
+}
+
+.dashboard-toolbar {
+    grid-area: toolbar;
+}
+
+.dashboard-content {
+    grid-area: content;
 }
 
 @layer base {

@@ -2,7 +2,6 @@
     "name": "sathene",
     "version": "0.0.0",
     "private": true,
-    "packageManager": "pnpm@10.0.0",
     "scripts": {
         "dev": "turbo run dev",
         "web": "pnpm --filter @sathene/web --",

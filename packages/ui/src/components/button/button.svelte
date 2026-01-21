@@ -1,6 +1,7 @@
 <script lang="ts" module>
     import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements'
 
+    import { LoaderCircle } from '@lucide/svelte'
     import { type VariantProps, tv } from 'tailwind-variants'
 
     import { type WithElementRef, cn } from '../../lib/utils'
@@ -38,6 +39,7 @@
         WithElementRef<HTMLAnchorAttributes> & {
             variant?: ButtonVariant
             size?: ButtonSize
+            loading?: boolean
         }
 </script>
 
@@ -51,6 +53,7 @@
         type = 'button',
         disabled,
         children,
+        loading = false,
         ...restProps
     }: ButtonProps = $props()
 </script>
@@ -77,6 +80,10 @@
         {disabled}
         {...restProps}
     >
+        {#if loading}
+            <LoaderCircle class="animate-spin" />
+        {/if}
+
         {@render children?.()}
     </button>
 {/if}

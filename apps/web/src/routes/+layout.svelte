@@ -1,17 +1,14 @@
 <script lang="ts">
-    import { Toaster } from '@sathene/ui'
+    import { ModeWatcher, Toaster } from '@sathene/ui'
 
     import favicon from '$lib/assets/favicon.svg'
-    import { checkTheme } from '$lib/theme.svelte.js'
+    import Alerts from '$lib/components/Alerts.svelte'
+    import Modals from '$lib/components/Modals.svelte'
     import { QueryClientProvider } from '@tanstack/svelte-query'
 
     import '../app.css'
 
     let { children, data } = $props()
-
-    $effect(() => {
-        checkTheme()
-    })
 </script>
 
 <svelte:head>
@@ -20,6 +17,12 @@
 
 <Toaster position="top-right" />
 
+<ModeWatcher />
+
 <QueryClientProvider client={data.queryClient}>
+    <Alerts />
+
+    <Modals />
+
     {@render children()}
 </QueryClientProvider>

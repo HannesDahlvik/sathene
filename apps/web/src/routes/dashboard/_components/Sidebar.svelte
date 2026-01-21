@@ -10,12 +10,12 @@
     }
 </script>
 
-<div class="border-r-border flex w-full flex-col border-r p-4">
-    <div class="mb-2">
+<div class="dashboard-sidebar border-r-border flex w-full flex-col border-r p-4">
+    <div class="mt-2 mb-6 text-center">
         <a href="/" class="mr-2 text-2xl font-bold">Sathene</a>
     </div>
 
-    <div class="flex flex-col gap-2">
+    <div class="mt-6 flex flex-col gap-2">
         {#each DASHBOARD_LINKS as link}
             {@const Icon = link.icon}
             {@const enabled = page.url.pathname.includes(link.href)}

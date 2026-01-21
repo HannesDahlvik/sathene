@@ -8,6 +8,6 @@
     }))
 </script>
 
-<div class="w-full p-14">
+<div class="w-full p-6">
     <h2>Overview</h2>
 </div>

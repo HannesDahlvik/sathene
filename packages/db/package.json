@@ -5,9 +5,9 @@
     "main": "src/index.ts",
     "scripts": {
         "dev": "pnpm with-env drizzle-kit studio",
-        "db:generate": "pnpm with-env drizzle-kit generate",
-        "db:push": "pnpm with-env drizzle-kit push",
-        "db:studio": "pnpm with-env drizzle-kit studio",
+        "generate": "pnpm with-env drizzle-kit generate",
+        "push": "pnpm with-env drizzle-kit push",
+        "studio": "pnpm with-env drizzle-kit studio",
         "with-env": "dotenv -e ../../.env --"
     },
     "dependencies": {

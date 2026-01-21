@@ -4,7 +4,6 @@ import { serve } from '@hono/node-server'
 import { trpcServer } from '@hono/trpc-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
-import { logger } from 'hono/logger'
 
 import { createContext } from './context.js'
 import { auth } from './lib/auth.js'
@@ -12,7 +11,10 @@ import { satheneRouter } from './root.js'
 
 const app = new Hono()
 
-app.use(logger())
+app.use(async (c, next) => {
+    console.log(`${c.req.method} ${c.req.path}`)
+    await next()
+})
 app.use(
     '*',
     cors({

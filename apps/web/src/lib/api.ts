@@ -4,6 +4,8 @@ import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
 import { createAuthClient } from 'better-auth/svelte'
 import SuperJSON from 'superjson'
 
+import { errorHandler } from './utils'
+
 const api = createTRPCProxyClient<SatheneRouter>({
     links: [
         httpBatchLink({
@@ -28,7 +30,12 @@ const api = createTRPCProxyClient<SatheneRouter>({
 })
 
 const authClient = createAuthClient({
-    baseURL: 'http://localhost:3000/api/auth'
+    baseURL: 'http://localhost:3000/api/auth',
+    fetchOptions: {
+        onError: ({ error }) => {
+            errorHandler(error)
+        }
+    }
 })
 
 export { api, authClient }

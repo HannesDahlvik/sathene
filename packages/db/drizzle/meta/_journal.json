@@ -8,6 +8,62 @@
       "when": 1768600327615,
       "tag": "0000_odd_inhumans",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1768677246653,
+      "tag": "0001_same_millenium_guard",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1768680522319,
+      "tag": "0002_acoustic_shiver_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1768680688057,
+      "tag": "0003_early_karen_page",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1768744760201,
+      "tag": "0004_medical_madelyne_pryor",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1768846835032,
+      "tag": "0005_heavy_leopardon",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1768847868670,
+      "tag": "0006_odd_santa_claus",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1768849373929,
+      "tag": "0007_chunky_blizzard",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1769019929342,
+      "tag": "0008_complete_king_cobra",
+      "breakpoints": true
     }
   ]
 }

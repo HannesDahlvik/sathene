@@ -1,3 +1,5 @@
+import type { SortOrderEnum } from '@sathene/db'
+
 import {
     Calendar,
     ClipboardList,
@@ -33,4 +35,10 @@ export const DASHBOARD_LINKS: DashboardLink[] = [
         href: '/dashboard/notes',
         icon: Notebook
     }
+]
+
+export const DASHBOARD_TASKLIST_SORT_ORDERS: { label: string; value: SortOrderEnum }[] = [
+    { label: 'Date', value: 'DATE' },
+    { label: 'Due Date', value: 'DUEDATE' },
+    { label: 'Title', value: 'TITLE' }
 ]

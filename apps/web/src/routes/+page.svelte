@@ -10,7 +10,7 @@
     <h1>Sathene web</h1>
 
     <Button href="/dashboard">Dashboard</Button>
-    {#if !$auth.data?.user}
+    {#if !$auth.data?.user && !$auth.isPending}
         <Button href="/signin">Sign in</Button>
         <Button href="/signup">Signup</Button>
     {/if}

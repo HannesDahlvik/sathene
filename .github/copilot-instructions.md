@@ -94,32 +94,6 @@ export const events = pgTable('events', {
 })
 ```
 
-### UI Component Sharing
-
-Feature-specific components live in `packages/ui/src/components/` organized by feature:
-
-```
-packages/ui/src/components/
-  ├── calendar/
-  │   ├── calendar-view.svelte
-  │   └── event-card.svelte
-  ├── tasks/
-  │   ├── task-list.svelte
-  │   └── task-item.svelte
-  └── button/            # Shared across all features
-```
-
-All exported from `packages/ui/src/index.ts` for use in web and mobile apps.
-
-### Adding a New Feature
-
-1. Create backend router in `apps/server/src/routers/feature.ts` with tRPC procedures
-2. Define schema tables in `packages/db/src/schema.ts`
-3. Add feature-specific UI components in `packages/ui/src/components/feature/`
-4. Export components from `packages/ui/src/index.ts`
-5. Merge router into `apps/server/src/root.ts`
-6. Import and use in `apps/web/src/routes/` and `apps/mobile/src/routes/`
-
 ### Commands
 
 ```bash

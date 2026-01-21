@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm'
-import { boolean, index, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { boolean, index, pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const user = pgTable('user', {
     id: text('id').primaryKey(),
@@ -13,6 +13,7 @@ export const user = pgTable('user', {
         .$onUpdate(() => /* @__PURE__ */ new Date())
         .notNull()
 })
+export type User = typeof user.$inferSelect
 
 export const session = pgTable(
     'session',
@@ -32,6 +33,7 @@ export const session = pgTable(
     },
     (table) => [index('session_userId_idx').on(table.userId)]
 )
+export type Session = typeof session.$inferSelect
 
 export const account = pgTable(
     'account',
@@ -56,6 +58,7 @@ export const account = pgTable(
     },
     (table) => [index('account_userId_idx').on(table.userId)]
 )
+export type Account = typeof account.$inferSelect
 
 export const verification = pgTable(
     'verification',
@@ -72,10 +75,48 @@ export const verification = pgTable(
     },
     (table) => [index('verification_identifier_idx').on(table.identifier)]
 )
+export type Verification = typeof verification.$inferSelect
+
+export const sortOrderEnumValues = ['DATE', 'DUEDATE', 'TITLE'] as const
+export const sortOrderEnum = pgEnum('sort_order', sortOrderEnumValues)
+export type SortOrderEnum = (typeof sortOrderEnumValues)[number]
+
+export const taskList = pgTable('task_list', {
+    id: text('id').primaryKey(),
+    name: text('name').notNull(),
+    sortOrder: sortOrderEnum('sort_order').default('DATE').notNull(),
+    userId: text('user_id')
+        .notNull()
+        .references(() => user.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+        .defaultNow()
+        .$onUpdate(() => /* @__PURE__ */ new Date())
+        .notNull()
+})
+export type TaskList = typeof taskList.$inferSelect
+
+export const tasks = pgTable('tasks', {
+    id: text('id').primaryKey(),
+    taskListId: text('task_list_id')
+        .notNull()
+        .references(() => taskList.id, { onDelete: 'cascade' }),
+    title: text('title').notNull(),
+    details: text('details'),
+    dueDate: timestamp('due_date'),
+    completed: boolean('completed').default(false).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+        .defaultNow()
+        .$onUpdate(() => /* @__PURE__ */ new Date())
+        .notNull()
+})
+export type Tasks = typeof tasks.$inferSelect
 
 export const userRelations = relations(user, ({ many }) => ({
     sessions: many(session),
-    accounts: many(account)
+    accounts: many(account),
+    taskLists: many(taskList)
 }))
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -89,5 +130,16 @@ export const accountRelations = relations(account, ({ one }) => ({
     user: one(user, {
         fields: [account.userId],
         references: [user.id]
+    })
+}))
+
+export const taskListRelations = relations(taskList, ({ many }) => ({
+    tasks: many(tasks)
+}))
+
+export const tasksRelations = relations(tasks, ({ one }) => ({
+    taskList: one(taskList, {
+        fields: [tasks.taskListId],
+        references: [taskList.id]
     })
 }))
