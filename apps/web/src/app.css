@@ -7,7 +7,7 @@
 @source '../../../packages/ui';
 
 .dashboard-grid {
-    @apply grid h-screen;
+    @apply grid h-screen max-h-screen w-full;
     grid-template-columns: 256px 1fr;
     grid-template-rows: 80px 1fr;
     grid-template-areas:
@@ -16,6 +16,7 @@
 }
 
 .dashboard-sidebar {
+    @apply h-screen;
     grid-area: sidebar;
 }
 
@@ -24,6 +25,7 @@
 }
 
 .dashboard-content {
+    @apply overflow-scroll;
     grid-area: content;
 }
 

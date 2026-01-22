@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@lucide/svelte": "^0.562.0",
+        "@sathene/dayjs": "workspace:^",
         "@sathene/db": "workspace:^",
         "@sathene/server": "workspace:^",
         "@sathene/ui": "workspace:^",

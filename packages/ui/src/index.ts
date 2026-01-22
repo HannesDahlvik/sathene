@@ -5,6 +5,8 @@ export * as Dialog from './components/dialog'
 export * as DropdownMenu from './components/dropdown-menu'
 export { Input } from './components/input'
 export { Label } from './components/label'
+export * as Select from './components/select'
+export { Separator } from './components/separator'
 export { Skeleton } from './components/skeleton'
 export { Toaster } from './components/toaster'
 

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Dialog } from '@sathene/ui'
 
-    import { type ModalSettings, getModals } from '$lib/modals.svelte'
+    import { type ModalSettings, getModals } from '$lib/stores/modals.svelte'
 
     let modals: ModalSettings[] = $state([])
     $effect(() => {

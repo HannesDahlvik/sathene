@@ -4,7 +4,7 @@
     import { Button, Skeleton } from '@sathene/ui'
 
     import { api } from '$lib/api'
-    import { openModal } from '$lib/modals.svelte'
+    import { openModal } from '$lib/stores/modals.svelte'
     import { clearToolbar, setToolbar } from '$lib/utils'
     import { createQuery } from '@tanstack/svelte-query'
 

@@ -46,13 +46,15 @@
     <div class="dashboard-grid">
         <Sidebar />
 
-        {#if toolbar}
-            <div class="dashboard-toolbar border-b-border flex w-full items-center border-b p-6">
-                <p class="mr-6 text-lg font-semibold">{toolbarTitle}</p>
+        <div class="dashboard-toolbar border-b-border flex w-full items-center border-b px-6 py-3">
+            {#if toolbar}
+                {#if toolbarTitle}
+                    <p class="mr-6 text-lg font-semibold">{toolbarTitle}</p>
+                {/if}
 
                 {@render toolbar()}
-            </div>
-        {/if}
+            {/if}
+        </div>
 
         <div class="dashboard-content">
             {@render children()}

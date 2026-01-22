@@ -3,7 +3,7 @@
     import { Dialog } from '@sathene/ui'
 
     import { api } from '$lib/api'
-    import { closeAllModals } from '$lib/modals.svelte'
+    import { closeAllModals } from '$lib/stores/modals.svelte'
     import { errorHandler } from '$lib/utils'
     import { useQueryClient } from '@tanstack/svelte-query'
     import z from 'zod'

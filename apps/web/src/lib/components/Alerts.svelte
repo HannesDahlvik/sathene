@@ -1,7 +1,7 @@
 <script lang="ts">
     import { AlertDialog } from '@sathene/ui'
 
-    import { type AlertSettings, getAlerts } from '$lib/alerts.svelte'
+    import { type AlertSettings, getAlerts } from '$lib/stores/alerts.svelte'
 
     let alerts: AlertSettings[] = $state([])
     $effect(() => {

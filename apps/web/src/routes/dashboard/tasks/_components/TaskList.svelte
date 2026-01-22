@@ -2,10 +2,10 @@
     import { type SortOrderEnum, type TaskList, type Tasks } from '@sathene/db'
     import { Button, DropdownMenu } from '@sathene/ui'
 
-    import { closeAllAlerts, openAlert } from '$lib/alerts.svelte'
     import { api } from '$lib/api'
     import { DASHBOARD_TASKLIST_SORT_ORDERS } from '$lib/consts'
-    import { openModal } from '$lib/modals.svelte'
+    import { closeAllAlerts, openAlert } from '$lib/stores/alerts.svelte'
+    import { openModal } from '$lib/stores/modals.svelte'
     import { errorHandler } from '$lib/utils'
     import { CheckCheck, EllipsisVertical } from '@lucide/svelte'
     import { useQueryClient } from '@tanstack/svelte-query'
