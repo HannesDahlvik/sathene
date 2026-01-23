@@ -8,11 +8,11 @@
 
 .dashboard-grid {
     @apply grid h-screen max-h-screen w-full;
-    grid-template-columns: 256px 1fr;
+    grid-template-columns: 256px 1fr 256px;
     grid-template-rows: 80px 1fr;
     grid-template-areas:
-        'sidebar toolbar'
-        'sidebar content';
+        'sidebar toolbar timeline'
+        'sidebar content timeline';
 }
 
 .dashboard-sidebar {
@@ -27,6 +27,11 @@
 .dashboard-content {
     @apply overflow-scroll;
     grid-area: content;
+}
+
+.dashboard-timeline {
+    @apply h-screen;
+    grid-area: timeline;
 }
 
 @layer base {

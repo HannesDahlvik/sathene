@@ -7,6 +7,7 @@
     import { LoaderCircle } from '@lucide/svelte'
 
     import Sidebar from './_components/Sidebar.svelte'
+    import Timeline from './_components/Timeline.svelte'
 
     const auth = authClient.useSession()
 
@@ -59,5 +60,7 @@
         <div class="dashboard-content">
             {@render children()}
         </div>
+
+        <Timeline />
     </div>
 {/if}

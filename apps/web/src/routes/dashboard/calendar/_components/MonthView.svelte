@@ -56,14 +56,19 @@
 
 <div class="flex h-full flex-col">
     <div class="flex w-full items-center justify-center">
-        {#each dayjs.weekdaysShort(true) as day}
-            <p class="flex h-8 w-full items-center justify-center border-r text-xs uppercase">
+        {#each dayjs.weekdaysShort(true) as day, i}
+            <p
+                class={cn(
+                    'flex h-8 w-full items-center justify-center border-r text-xs uppercase',
+                    i === 6 && 'border-r-0'
+                )}
+            >
                 {day}
             </p>
         {/each}
     </div>
 
-    <div class="grid h-full flex-1 border-t border-r border-b">
+    <div class="grid h-full flex-1 border-t border-b">
         {#each month as week, i}
             <div class="flex h-full">
                 {#each week as day, j}
