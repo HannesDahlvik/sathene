@@ -113,6 +113,21 @@ export const tasks = pgTable('tasks', {
 })
 export type Tasks = typeof tasks.$inferSelect
 
+export const note = pgTable('note', {
+    id: text('id').primaryKey(),
+    title: text('title').notNull(),
+    content: text('content'),
+    userId: text('user_id')
+        .notNull()
+        .references(() => user.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+        .defaultNow()
+        .$onUpdate(() => /* @__PURE__ */ new Date())
+        .notNull()
+})
+export type Note = typeof note.$inferSelect
+
 export const userRelations = relations(user, ({ many }) => ({
     sessions: many(session),
     accounts: many(account),

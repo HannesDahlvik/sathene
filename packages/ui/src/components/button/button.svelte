@@ -64,7 +64,7 @@
         data-slot="button"
         class={cn(buttonVariants({ variant, size }), className)}
         href={disabled ? undefined : href}
-        aria-disabled={disabled}
+        aria-disabled={disabled || loading}
         role={disabled ? 'link' : undefined}
         tabindex={disabled ? -1 : undefined}
         {...restProps}
@@ -77,7 +77,7 @@
         data-slot="button"
         class={cn(buttonVariants({ variant, size }), className)}
         {type}
-        {disabled}
+        disabled={disabled || loading}
         {...restProps}
     >
         {#if loading}
