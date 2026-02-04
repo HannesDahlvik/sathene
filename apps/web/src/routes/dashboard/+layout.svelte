@@ -1,10 +1,11 @@
 <script lang="ts">
     import { type Snippet, setContext } from 'svelte'
 
+    import { Spinner } from '@sathene/ui'
+
     import { goto } from '$app/navigation'
     import { authClient } from '$lib/api'
     import type { DashboardToolbarCtx, DashboardToolbarTitleCtx } from '$lib/types'
-    import { LoaderCircle } from '@lucide/svelte'
 
     import Sidebar from './_components/Sidebar.svelte'
     import Timeline from './_components/Timeline.svelte'
@@ -41,7 +42,7 @@
 
 {#if !$auth.data}
     <div class="flex h-screen items-center justify-center">
-        <LoaderCircle class="text-primary animate-spin" size="32" />
+        <Spinner />
     </div>
 {:else}
     <div class="dashboard-grid">

@@ -14,12 +14,20 @@
 
     import EditorToolbar from './EditorToolbar.svelte'
 
+    interface Props {
+        onEditor: (editor: Editor | null) => void
+        noteHTML?: string | null
+    }
+
+    let { onEditor, noteHTML }: Props = $props()
+
     let element = $state<HTMLDivElement | null>(null)
     let editor = $state<Editor | null>(null)
 
     onMount(() => {
         editor = new Editor({
             element,
+            content: noteHTML || '',
             extensions: [
                 Document,
                 Text,
@@ -43,8 +51,10 @@
             },
             onTransaction: ({ editor }) => {
                 editor = editor
+                onEditor(editor)
             }
         })
+        onEditor(editor)
 
         let editorDiv = document.querySelector('.ProseMirror') as HTMLDivElement
         if (editorDiv) {

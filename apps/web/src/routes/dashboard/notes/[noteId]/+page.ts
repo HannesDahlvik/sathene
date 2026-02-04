@@ -1,16 +1,9 @@
-import { api } from '$lib/api.js'
+import { api } from '$lib/api'
 
 export async function load({ params }) {
-    let error: Error | null = null
+    const note = await api.note.getNoteById.query({
+        noteId: params.noteId
+    })
 
-    const note = await api.note.getNoteById
-        .query({
-            noteId: params.noteId
-        })
-        .catch((err) => (error = err))
-
-    return {
-        note,
-        error
-    }
+    return note
 }

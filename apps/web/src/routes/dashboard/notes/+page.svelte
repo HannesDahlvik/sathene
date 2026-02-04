@@ -4,11 +4,8 @@
     import { Button, Skeleton } from '@sathene/ui'
 
     import { api } from '$lib/api'
-    import { openModal } from '$lib/stores/modals.svelte'
     import { clearToolbar, setToolbar } from '$lib/utils'
     import { createQuery } from '@tanstack/svelte-query'
-
-    import CreateNote from '../_modals/CreateNote.svelte'
 
     const notesPageData = createQuery(() => ({
         queryKey: ['notePage'],
@@ -43,9 +40,9 @@
         {/if}
 
         {#each notesPageData.data as note}
-            <div class="h-60 w-96 rounded border border-gray-300 bg-white p-4 shadow">
+            <a href={`/dashboard/notes/${note.id}`} class="h-60 w-96 rounded border p-4 shadow">
                 <p>{note.title}</p>
-            </div>
+            </a>
         {/each}
     {/if}
 </div>

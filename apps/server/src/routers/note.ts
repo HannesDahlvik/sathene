@@ -22,20 +22,33 @@ export const noteRouter = router({
 
         return notes
     }),
-    getNoteById: authProcedure.input(z.object({ noteId: z.ulid() })).query(async ({ input }) => {
-        const note = await db.query.note
-            .findFirst({
-                where: (note, { eq }) => eq(note.id, input.noteId)
+    getNoteById: authProcedure
+        .input(
+            z.object({
+                noteId: z.ulid()
             })
-            .catch((err) => {
-                throw new TRPCError({
-                    code: 'INTERNAL_SERVER_ERROR',
-                    message: err.message
+        )
+        .query(async ({ input }) => {
+            const note = await db.query.note
+                .findFirst({
+                    where: (note, { eq }) => eq(note.id, input.noteId)
                 })
-            })
+                .catch((err) => {
+                    throw new TRPCError({
+                        code: 'INTERNAL_SERVER_ERROR',
+                        message: err.message
+                    })
+                })
 
-        return note
-    }),
+            if (!note) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Note not found'
+                })
+            }
+
+            return note
+        }),
     create: authProcedure
         .input(
             z.object({

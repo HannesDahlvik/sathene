@@ -25,7 +25,9 @@
     }: Props = $props()
 </script>
 
-<Label class="mb-2" for={label}>{label}</Label>
+{#if label}
+    <Label class="mb-2" for={label}>{label}</Label>
+{/if}
 {#if type === 'file'}
     <input
         bind:this={ref}

@@ -8,6 +8,7 @@ export { Label } from './components/label'
 export * as Select from './components/select'
 export { Separator } from './components/separator'
 export { Skeleton } from './components/skeleton'
+export { Spinner } from './components/spinner'
 export { Toaster } from './components/toaster'
 
 export { cn } from './lib/utils'
